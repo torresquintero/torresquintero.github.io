@@ -426,6 +426,20 @@ body.offcanvas {
   max-width: 100%;
 }
 
+.ale-custom-blog table {
+  font-size: 14px;
+  margin: 0px 10px 10px 10px;
+}
+
+.ale-custom-blog thead {
+  background-color: rgb(203, 234, 251);
+}
+
+.ale-custom-blog th, td {
+  border: #e9ebec 1px solid;
+  padding: 6px 12px;
+}
+
 h1 {
   text-align: center;
 }

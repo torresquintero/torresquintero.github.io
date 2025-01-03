@@ -1,0 +1,769 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Tutorial on Declipping Wav Files</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was originally published on the
+										<a href="https://engineering.papercup.com/posts/ADEPT/">
+											Papercup Engineering Blog
+										</a>
+										on 26 August 2021
+									</div>
+									<hr>
+									<h1>ADEPT: A dataset for evaluating prosody transfer</h1>
+									<img src="../images/puppy-and-kitty.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>We published two papers at Interspeech this year (hooray 🎉). The first, <a
+												href="https://arxiv.org/abs/2106.08352" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a> provides interpretable,
+											temporally-precise, and disentangled control of prosodic features in TTS,
+											and you can read more about it in its accompanying blog post <a
+												href="https://engineering.papercup.com/posts/Ctrl-P/" target="_blank"
+												rel="nofollow noopener noreferrer">here</a>. This blog post covers our
+											second paper, <a href="https://arxiv.org/abs/2106.08321" target="_blank"
+												rel="nofollow noopener noreferrer">ADEPT</a>, whose related dataset can
+											be found on <a href="https://doi.org/10.5281/zenodo.5117102" target="_blank"
+												rel="nofollow noopener noreferrer">Zenodo</a>. For a step-by-step guide
+											on how to perform an ADEPT evaluation, refer to our <a
+												href="https://engineering.papercup.com/posts/ADEPT-how-to/"
+												target="_blank" rel="nofollow noopener noreferrer">tutorial</a>.</p>
+										<p>In the ADEPT paper, we propose a new system of evaluation for English prosody
+											transfer in text-to-speech (TTS). By <strong>prosody transfer</strong> (PT)
+											we mean the process of transferring the prosody from a natural reference
+											speech sample onto generated synthesised speech, usually with the aim of
+											making the synthesis more expressive. The aim of our proposal is two fold:
+										</p>
+										<ol>
+											<li>We want to establish a benchmark of expected performance of PT models.
+											</li>
+											<li>We want to create a system by which PT models can be compared against
+												each other.</li>
+										</ol>
+										<p>But a bit of background first.</p>
+										<h2>How has prosody transfer been evaluated in the past?</h2>
+										<p>One common method for PT evaluation is the <em>anchored prosody
+												side-by-side</em> (AXY) test, introduced in <a
+												href="http://proceedings.mlr.press/v80/skerry-ryan18a.html"
+												target="_blank" rel="nofollow noopener noreferrer">Skerry-Ryan et al.
+												2018</a>, in which listeners rate a reference sample A on a 7-point
+											scale of closeness between two samples: a baseline X and the model-generated
+											Y. We see this method in other works, including <a
+												href="https://arxiv.org/abs/1906.03402" target="_blank"
+												rel="nofollow noopener noreferrer">Battenberg et al. 2019</a>, and <a
+												href="https://arxiv.org/abs/1911.09645" target="_blank"
+												rel="nofollow noopener noreferrer">Gururani et al. 2020</a>. Though such
+											a method can clearly show improvement over a baseline, it is susceptible to
+											cherry-picked references. For example, if a model is particularly good at
+											transferring duration, and all the reference samples are sentences in which
+											grammatical pauses matter prosodically, this model will score quite high in
+											an AXY task, signifying that it is great at PT, even if it is poor at
+											transferring F0.</p>
+										<p><a href="http://www.interspeech2020.org/index.php?m=content&amp;c=index&amp;a=show&amp;catid=357&amp;id=1201"
+												target="_blank" rel="nofollow noopener noreferrer">Karlapati et al.
+												2020</a> overcome this problem by using linguists to evaluate their
+											samples on five aspects of speech related to prosody: rhythm, emphasis,
+											syllable length, melody, and loudness. Though effective, this method is
+											expensive; trained linguists are hard to come by, which results in fewer
+											overall evaluators. Additionally, such a method might be hard to scale
+											across languages other than English, if there are even fewer native-speaking
+											linguists in the target language.</p>
+										<p>We’ve also seen some researchers use naturalness MOS scores as a proxy for
+											successful transfer, including <a
+												href="https://ieeexplore.ieee.org/document/9053520" target="_blank"
+												rel="nofollow noopener noreferrer">Sun et al. 2020</a>. But naturalness
+											and prosody are two different aspects of speech. For example, you can have
+											high naturalness with limited prosody (i.e. a monotonic assistant voice).
+											Therefore we don’t believe MOS for naturalness is a sufficient metric for
+											PT.</p>
+										<p>Perhaps my favourite subjective evaluation we’ve seen is that proposed by <a
+												href="https://ieeexplore.ieee.org/document/8683501" target="_blank"
+												rel="nofollow noopener noreferrer">Lee et al. 2019</a>, who claim that
+											successful transfer of a song demonstrates successful transfer of prosody.
+											Though this is a compelling proposal because pitch is fundamental to a song
+											melody, F0 is not the only acoustic cue to prosody, as we discuss in the
+											next section.</p>
+										<p>Ultimately, such a variety of evaluation methods demonstrates a clear lack of
+											consistency in what is meant by <em>prosody</em> in the context of
+											<em>prosody transfer</em>. Such a lack of clarity encumbers progress in this
+											field, because improvements are very hard to measure.
+										</p>
+										<p>But not to worry! In the following section, we introduce several prosodic
+											phenomena in detail, and their perceivability, that one may encounter in
+											prosody transfer tasks. In subsequent sections, we explain how we recorded
+											samples of these phenomena, and used these natural recordings to determine
+											appropriate evaluation designs based on such perceivability. Finally, we
+											show how these evaluation designs can be used to evaluate PT models.</p>
+										<h2>Previous research has told us a lot about prosody</h2>
+										<p>In fact, linguistics has given us a good definition of
+											<strong>prosody</strong> that we can work off of to build a more
+											comprehensive evaluation system: high-level structures that account for F0,
+											duration, amplitude, spectral tilt, and segmental reduction patterns in
+											speech (<a href="https://link.springer.com/article/10.1007/BF01708572"
+												target="_blank" rel="nofollow noopener noreferrer">Shattuck-Hufnagel
+												&amp; Turk 1996</a>). Using this definition, we can identify many
+											different <strong>classes of speech</strong> with such a prosodic effect.
+										</p>
+										<h3>Speech classes with prosodic effect</h3>
+										<p>For ADEPT, we found six: emotion, interpersonal attitude, propositional
+											attitude, topical emphasis, syntactic phrasing, and marked tonicity.</p>
+										<p>Whilst emotion refers to a speaker’s inner state, attitude is towards
+											something external. For example, a speaker can sound happy or sad
+											(<strong>emotion</strong>), but they can also sound friendly or polite
+											towards the listener (<strong>interpersonal attitude</strong>) or
+											incredulous or surprised by what they are saying (<strong>propositional
+												attitude</strong>). Previous literature has shown all three of these
+											classes of speech to have prosodic effects on F0, amplitude, duration, and
+											spectral tilt.</p>
+										<p><strong>Topical emphasis</strong> refers to particular words in a sentence
+											being emphasised as opposed to other words. For example <em>NOT</em> in the
+											sentence “I will NOT go.” It has prosodic effects on F0, amplitude, and
+											duration.</p>
+										<p>By <strong>syntactic phrasing</strong>, we mean grammatical pauses within a
+											sentence, such as the pause after <em>yesterday</em> in the sentence
+											“Yesterday, I went to the park.” This class has durational prosodic effect
+											both on the length of pauses themselves, and the word preceding a pause.</p>
+										<p>And lastly, we use <strong>marked tonicity</strong> to refer to the
+											phenomenon in English speech in which there will always be a syllable that
+											carries the greatest lexical stress across the sentence. Like topical
+											emphasis, it has prosodic effects on F0, amplitude, and duration, but also
+											on segmental reduction. If you are unfamiliar with segmental reduction,
+											listen to the following sample, and notice how I have ‘reduced’ my
+											pronunciation of the word <em>to</em> to being very short.</p>
+										<audio controls="">
+											<source src="../audio/park.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>If you’re familiar with IPA, note how the word is reduced from /tuː/ to /tə/.
+										</p>
+										<h3>Perceivable subcategories and interpretations</h3>
+										<p>Okay so we’ve identified all of these speech classes, but how is this helpful
+											for evaluation? Well each of these classes have previously been shown to
+											have prosodically distinguishable subcategories or interpretations. For
+											example, for topical emphasis listen to the following samples:</p>
+										<audio controls="" style="width:250px">
+											<source src="../audio/pros01_00_b0100.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio>
+										<audio controls="" style="width:250px">
+											<source src="../audio/pros01_00_m0100.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio>
+										<audio controls="" style="width:250px">
+											<source src="../audio/pros01_00_e0100.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>In these three samples, the text is exactly the same: “Tian went to the
+											office yesterday.” However, the topical emphasis varies. It lies either on
+											the beginning content word <em>Tian</em>, the middle content word
+											<em>office</em>, or at the end on the content word <em>yesterday</em>.
+											Therefore, we see three subcategories of topical emphasis (beginning,
+											middle, and end) that are prosodically distinguishable: listeners can
+											differentiate between these subcategories using prosody alone. This is
+											important for prosody TTS research because <mark>if researchers can show
+												that a model produces these types of prosodically ambiguous sentences
+												such that the listeners can perceive (and thus correctly classify) the
+												subcategories, then they can claim that the model can successfully
+												produce that prosody class</mark>. So we had to find such subcategories
+											for all the classes from previous literature:
+										</p>
+										<ul>
+											<li><strong>emotion</strong>: anger, disgust, fear, sadness, and joy</li>
+											<li><strong>interpersonal attitude</strong>: contemptuous questions,
+												authoritative statements, and polite statements</li>
+											<li><strong>propositional attitude</strong>: obviousness statements,
+												surprise statements, sarcasm statements, doubt statements, incredulity
+												questions, and confirmation questions</li>
+											<li><strong>topical emphasis</strong>: beginning, middle, and end</li>
+										</ul>
+										<p>With <strong>syntactic phrasing</strong> and <strong>marked
+												tonicity</strong>, we couldn’t find such subcategories with different
+											prosodic effect. But instead, we were able to identify sentences whose
+											different interpretations resulted in different prosody. For example,
+											consider the sentence “For my dinner I will have either pork or chicken and
+											fries.” which has two interpretations: 1) I will either have pork, or have
+											chicken and fries. Or 2) I will have either pork or chicken, and
+											additionally, I will have fries.</p>
+										<audio controls="">
+											<source src="../audio/pros00_00_a0404.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio>
+										<audio controls="">
+											<source src="../audio/pros00_00_b0404.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>The first interpretation yields a syntactic phrase boundary after
+											<em>pork</em>, which is realised as an audible pause in the first sample.
+											The second similarly yields a phrase boundary and audible pause after
+											<em>chicken</em>.
+										</p>
+										<h2>How we can use this information for PT evaluation</h2>
+										<p>For each of the six classes, we crafted sentences that were sufficiently
+											ambiguous for all subcategories or interpretations within the class. We
+											wrote 33 such sentences for topical emphasis before realising that was
+											waaaaay more than we needed (also writing these sentences is hard!). So for
+											the other five classes we only wrote 20 sentences each.</p>
+										<h3>Recording</h3>
+										<p>It was then time to record in studio. To help our voice actors elicit the
+											target prosody, we gave them contextual queues for each utterance. For
+											example, for the sentence “The office is on the top floor” which was to be
+											elicited with disgust (a subcategory of emotion), we gave additional context
+											that there was no lift in the building.</p>
+										<p>For emotion, interpersonal attitude, propositional attitude, and topical
+											emphasis, we also recorded each sentence in a neutral style, in which no
+											subcategory was elicited. However, for syntactic phrasing and marked
+											tonicity there was no such “neutral” style. For example, consider the
+											sentence “For my dinner I will have either pork or chicken and fries” from
+											above. One of the two interpretations is mandatory; it is not possible to
+											have neither.</p>
+										<p>Therefore, per speaker we recorded:</p>
+										<ul>
+											<li>(33 sentences) <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (3
+												subcategories + neutral) = 132 topical emphasis utterances</li>
+											<li>(20 sentences) <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (5
+												subcategories + neutral) = 120 emotion utts</li>
+											<li>20 <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (3
+												subcategories + neutral) = 80 interpersonal attitude utts</li>
+											<li>20 <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (6
+												subcategories + neutral) = 140 propositional attitude utts</li>
+											<li>20 <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (2
+												interpretations) = 40 syntactic phrasing utts</li>
+											<li>20 <span class="katex"><span class="katex-mathml"><math
+															xmlns="http://www.w3.org/1998/Math/MathML">
+															<semantics>
+																<mrow>
+																	<!-- <mo>×</mo> -->
+																</mrow>
+																<annotation encoding="application/x-tex">\times
+																</annotation>
+															</semantics>
+														</math></span><span class="katex-html" aria-hidden="true"><span
+															class="base"><span class="strut"
+																style="height:0.66666em;vertical-align:-0.08333em"></span><span
+																class="mord">×</span></span></span></span> (2
+												interpretations) = 40 marked tonicity utts</li>
+										</ul>
+										<p>That’s a grand total of 1104 utterances, or 552 per speaker. Whew that’s a
+											lot.</p>
+										<h3>Question design</h3>
+										<p>Next it was time to figure out what sort of questions to ask listeners in
+											order to facilitate disambiguation between the subcategories or
+											interpretations. Therefore, we designed <strong>pre-tests</strong> to
+											determine usable question setups for each class. In designing these
+											pre-tests, we had three considerations:</p>
+										<ol>
+											<li>
+												<p>Should the question be formulated with <strong>multiple
+														stimuli</strong> (left example) or a <strong>single
+														stimulus</strong> (right example)?</p>
+												<div style="padding-top:10px">
+													<div
+														style="float:left;width:50%;margin-right:20px;border-right:solid #e4eaed 1px">
+														In which sample is the word <em>office</em> most
+														emphasised?<br />
+														a. <audio controls="">
+															<source
+																src="../audio/pros01_00_b0100.wav"
+																type="audio/wav" />
+															Your browser does not support the audio element.
+														</audio><br />
+														b. <audio controls="">
+															<source
+																src="../audio/pros01_00_m0100.wav"
+																type="audio/wav" />
+															Your browser does not support the audio element.
+														</audio><br />
+														c. <audio controls="">
+															<source
+																src="../audio/pros01_00_e0100.wav"
+																type="audio/wav" />
+															Your browser does not support the audio element.
+														</audio>
+													</div>
+													<div>
+														<audio controls="">
+															<source
+																src="../audio/pros01_00_m0100.wav"
+																type="audio/wav" />
+															Your browser does not support the audio element.
+														</audio><br />
+														Which word is most strongly emphasised in the sample?<br />
+														a. Tian<br />
+														b. office<br />
+														c. yesterday
+													</div>
+												</div>
+												<br />
+											</li>
+											<li>
+												<p>Should we ask about the speech class <strong>directly</strong>, or
+													<strong>indirectly</strong> in context? For example, the two
+													questions above ask directly about the emphasis class. But instead,
+													we could think about the context that would elicit such prosody, and
+													ask listeners to place the sample in the appropriate context. For
+													example:
+												</p>
+												<div style="padding:10px 0">
+													<audio controls="">
+														<source
+															src="../audio/pros01_00_m0100.wav"
+															type="audio/wav" />
+														Your browser does not support the audio element.
+													</audio><br />
+													Which question is best answered by the sample?<br />
+													a. WHO went to the office yesterday?<br />
+													b. Tian went WHERE yesterday?<br />
+													c. Tian went to the office WHEN?
+												</div>
+											</li>
+											<li>Should the neutral sample be included as a stimulus? Of course we
+												couldn’t include it for syntactic phrasing and marked tonicity because
+												it didn’t exist. But for the other four classes, including neutral could
+												further substantiate our results.</li>
+										</ol>
+										<p>Ultimately, we did not try every possible design for each class (and we got
+											some flack for this from one of our Interspeech reviewers 😬). But in our
+											defence, that would have been 8 different test setups to try for each class
+											with neutral samples, and 4 setups each for the other two classes. In total,
+											that’s 40 different listening pre-tests to trial (using all the 1104
+											utterances) before actually running the real listening tests on the optimum
+											design. Instead, we conducted pre-tests for each class, and if native
+											listeners could disambiguate at least some of the subcategories or
+											interpretations frequently enough, then we accepted that design without
+											exploring others.</p>
+										<p>You are of course welcome to perform your own pre-tests (with the samples
+											we’ve provided or with sentences of your own)! We’d love to know if there
+											are question setups that result in even better recognition accuracies than
+											what we report.</p>
+										<h3>Elimination of sentences and subcategories</h3>
+										<p>Using the results of the pre-tests, we were able to identify the 5 sentences
+											from each speaker/class pair with the highest recognition accuracy across
+											all subcategories/interpretations. By this we mean the sentences whose
+											utterances were classified as the correct subcategory or interpretation the
+											most times.</p>
+										<p>Within these top-5 sentences for each speaker/class pair, if a subcategory
+											was not recognised at least 60% of the time, we eliminated it from the final
+											design. This does not mean that previous research was wrong in describing
+											these subcategories as distinguishable. Rather, it means that they were not
+											distinguishable in our recorded data. The following subcategories were
+											eliminated in this way:</p>
+										<ul>
+											<li>emotion: disgust</li>
+											<li>
+												<p>propositional attitude</p>
+												<ul>
+													<li>female and male: obviousness statements, doubt statements,
+														confirmation questions</li>
+													<li>female only: sarcasm statements</li>
+												</ul>
+											</li>
+										</ul>
+										<h3>Final design for each class</h3>
+										<p>The table below gives a summary of the final task design for each
+											class/speaker pair, with a total of 6 classes <span class="katex"><span
+													class="katex-mathml"><math
+														xmlns="http://www.w3.org/1998/Math/MathML">
+														<semantics>
+															<mrow>
+																<!-- <mo>×</mo> -->
+															</mrow>
+															<annotation encoding="application/x-tex">\times</annotation>
+														</semantics>
+													</math></span><span class="katex-html" aria-hidden="true"><span
+														class="base"><span class="strut"
+															style="height:0.66666em;vertical-align:-0.08333em"></span><span
+															class="mord">×</span></span></span></span> 2 speakers = 12
+											tasks in a full ADEPT evaluation. There is one question per sentence and
+											subcategory/interpretation. For example, after the male propositional
+											attitude pre-test, we were left with 3 subcategories (incredulity questions,
+											sarcasm statements, surprise statements) <span class="katex"><span
+													class="katex-mathml"><math
+														xmlns="http://www.w3.org/1998/Math/MathML">
+														<semantics>
+															<mrow>
+																<!-- <mo>×</mo> -->
+															</mrow>
+															<annotation encoding="application/x-tex">\times</annotation>
+														</semantics>
+													</math></span><span class="katex-html" aria-hidden="true"><span
+														class="base"><span class="strut"
+															style="height:0.66666em;vertical-align:-0.08333em"></span><span
+															class="mord">×</span></span></span></span> 5 sentences = 15
+											questions in the final design.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<table>
+											<thead>
+												<tr>
+													<th>Class</th>
+													<th style="text-align:center">number of<br />questions (F|M)</th>
+													<th style="text-align:center">number of<br />choices (F|M)</th>
+													<th style="text-align:center">audio stimuli</th>
+													<th style="text-align:center">neutral<br />included</th>
+													<th style="text-align:center">direct or indirect<br />question</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>emotion</td>
+													<td style="text-align:center">20 | 20</td>
+													<td style="text-align:center">5 | 5</td>
+													<td style="text-align:center">multiple</td>
+													<td style="text-align:center">yes</td>
+													<td style="text-align:center">direct</td>
+												</tr>
+												<tr>
+													<td>interpersonal attitude</td>
+													<td style="text-align:center">15 | 15</td>
+													<td style="text-align:center">4 | 4</td>
+													<td style="text-align:center">multiple</td>
+													<td style="text-align:center">yes</td>
+													<td style="text-align:center">direct</td>
+												</tr>
+												<tr>
+													<td>propositional attitude</td>
+													<td style="text-align:center">10 | 15</td>
+													<td style="text-align:center">3 | 4</td>
+													<td style="text-align:center">multiple</td>
+													<td style="text-align:center">yes</td>
+													<td style="text-align:center">both</td>
+												</tr>
+												<tr>
+													<td>topical emphasis</td>
+													<td style="text-align:center">15 | 15</td>
+													<td style="text-align:center">3 | 3</td>
+													<td style="text-align:center">single</td>
+													<td style="text-align:center">no</td>
+													<td style="text-align:center">indirect</td>
+												</tr>
+												<tr>
+													<td>syntactic phrasing</td>
+													<td style="text-align:center">10 | 10</td>
+													<td style="text-align:center">2 | 2</td>
+													<td style="text-align:center">single</td>
+													<td style="text-align:center">-</td>
+													<td style="text-align:center">indirect</td>
+												</tr>
+												<tr>
+													<td>marked tonicity</td>
+													<td style="text-align:center">10 | 10</td>
+													<td style="text-align:center">2 | 2</td>
+													<td style="text-align:center">single</td>
+													<td style="text-align:center">-</td>
+													<td style="text-align:center">indirect</td>
+												</tr>
+											</tbody>
+										</table>
+										<p>The number of choices per question is equal to the number of subcategories
+											for the speaker/class pair (or number of interpretations per sentence), plus
+											the neutral sample if it was included. We did not include neutral for
+											topical emphasis because we ultimately went with a single stimulus question
+											design, which would have meant questions whose single (neutral) sample had
+											no correct answer.</p>
+										<h3>Natural benchmark</h3>
+										<p>Okay so finally we’re addressing one of the problems we introduced at the
+											beginning: the fact that there is no established benchmark of expected
+											performance for PT models. In the table below, we show the recognition
+											accuracies (rounded to the nearest ones place) from two tasks: the female
+											emotion task and the male emotion task. By recognition accuracy, we mean the
+											percent of times a certain utterance was classified as its correct
+											subcategory or interpretation. Each task was performed by 30 paid
+											(self-proclaimed) native English speakers on MTurk. We verified their
+											English ability with a transcription task.</p>
+										<span style="float:right;margin-right:20px">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											<table>
+												<thead>
+													<tr>
+														<th>Class</th>
+														<th>subcategory</th>
+														<th style="text-align:center">female samples</th>
+														<th style="text-align:center">male samples</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>emotion</td>
+														<td>anger<br />fear<br />joy<br />sadness<br /></td>
+														<td style="text-align:center">
+															95%<br />80%<br />90%<br />88%<br /></td>
+														<td style="text-align:center">
+															83%<br />52%<br />88%<br />62%<br /></td>
+													</tr>
+												</tbody>
+											</table>
+										</span>
+										<p>Because there were 5 choices per question, chance performance was 20%. So all
+											these recognition accuracies are statistically significantly above chance
+											(one-tailed binomial test; p ≤ 0.05).</p>
+										<p>These values then serve as our proposed emotion benchmark. For example, a PT
+											model that perfectly transfers female anger from our samples should show a
+											recognition accuracy of about 95% if the same 20-question female emotion
+											task is performed. You can find the natural benchmark for all classes in
+											Table 3 of <a href="https://arxiv.org/abs/2106.08321" target="_blank"
+												rel="nofollow noopener noreferrer">the paper</a>.</p>
+										<h3>Comparing performance of PT models</h3>
+										<p>Hopefully it is now clear how you can also use this corpus and our proposed
+											evaluation framework to compare performance of PT models. You simply use our
+											samples as the PT reference samples (don’t let the model see them during
+											training!) and then perform whichever tasks are relevant for your use case.
+											A higher recognition accuracy would imply that that model is better at
+											transferring a particular subcategory or class (at least from our corpus).
+											We demonstrate such a comparison in section 4 of the paper.</p>
+										<p>For example, in <a href="https://arxiv.org/pdf/2106.08321.pdf#page=4"
+												target="_blank" rel="nofollow noopener noreferrer">table 3</a> you can
+											see that we tested our Ctrl-P model and found it was able to produce
+											contemptuous interpersonal attitude at least as good as our female voice
+											actor (~50%), whereas the Tacotron-Ref model performed more poorly (29%).
+											However, for the male voice actor, Ctrl-P was only successful about 35% of
+											the time, compared to 30% for Tacotron-Ref, and 52% for the voice actor.</p>
+										<p>You can also use these results to compare your model to itself across
+											different classes of prosody. For example, our results show that the
+											Tacotron-Ref model was much better at transferring female topical emphasis
+											(all recognition accuracies were statistically significant) than female
+											interpersonal attitudes (no recognition accuracies were statistically
+											significant). This informative conclusion allows the researcher to see
+											specifically how their model could be improved.</p>
+										<h2>Further work</h2>
+										<p>Okay this is all fine and dandy but the astute Papercup enthusiast may have
+											noticed that the ADEPT paper only covers monolingual PT in English, which
+											isn’t particularly useful for us because we do machine dubbing from English
+											into other languages. As Americans say when impersonating the British:
+											righty-ho!</p>
+										<p>To tackle this, we’d next like to validate if these classes and subcategories
+											transfer into Spanish (and other languages). Are the sentences equally as
+											ambiguous and can all the prosodic subcategories be elicited? If so, this
+											could be a really valuable evaluation framework for us going forward.</p>
+										<h2>Final notes</h2>
+										<p>As I could not find a satisfactory photo relevant to evaluation, prosody, or
+											speech, please enjoy the above stock photo of a puppy and kitten instead.
+										</p>
+
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
