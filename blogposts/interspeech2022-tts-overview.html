@@ -1,0 +1,720 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Overview of TTS at Interspeech 2022</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was co-authored by Ale Torresquintero,
+										<a href="https://www.linkedin.com/in/tomas-gomez-ibarrondo/">Tomás Gómez
+											Ibarrondo</a>, and
+										<a href="https://www.linkedin.com/in/zackhodari/">Zack Hodari</a>.<br />
+										It was originally published on the
+										<a href="https://engineering.papercup.com/posts/interspeech2022-tts-overview/">
+											Papercup Engineering Blog
+										</a>
+										on 2 December 2022.
+									</div>
+									<hr>
+									<h1>Overview of TTS at Interspeech 2022</h1>
+									<img src="../images/trantra-incheon.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>We hope you enjoyed our first blog post about our <a
+												href="interspeech2022-highlights.html"
+												target="_blank" rel="nofollow noopener noreferrer">highlights of
+												Interspeech 2022</a>. Here we’d like to cover the topics nearest and
+											dearest to our work: speech synthesis! There was a ton of new research this
+											year. With plenty of new datasets, new front-end text analysis, and new
+											methods for creating expressive synthetic voices, we hope you enjoy!</p>
+										<ul>
+											<li><a href="#data">Data</a></li>
+											<li><a href="#front-end">Linguistic front-end</a></li>
+											<li><a href="#expressivity">Expressivity</a></li>
+										</ul>
+										<h2><a name="data" href="#data" style="box-shadow:none">Data</a></h2>
+										<h3><a name="new-data" href="#new-data" style="box-shadow:none">New language
+												data</a></h3>
+										<p>We love to see new non-English corpora released, this both enables the
+											research community to test systems in other languages, but more importantly
+											helps promote formal investigations of under-resourced languages in speech
+											science. As is (somewhat unfortunately) standard in TTS research, most
+											papers we saw at Interspeech this year continued to use English-only data,
+											though there is growth in Mandarin. We want to start by highlighting four
+											new corpora from various other languages.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<table>
+											<thead>
+												<tr>
+													<th style="text-align:center"></th>
+													<th style="text-align:center">Authors</th>
+													<th>Language</th>
+													<th style="text-align:center">Number of<br />speakers</th>
+													<th style="text-align:center">Hours</th>
+													<th style="text-align:center">Licence</th>
+													<th>Data type</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"><a
+															href="https://doi.org/10.21437/Interspeech.2022-922"
+															target="_blank" rel="nofollow noopener noreferrer">Tran et
+															al.</a></td>
+													<td>Vietnamese</td>
+													<td style="text-align:center">1F</td>
+													<td style="text-align:center">9.5</td>
+													<td style="text-align:center">Research only</td>
+													<td>Found data:<br />YouTube<br />audiobooks</td>
+												</tr>
+												<tr>
+													<td style="text-align:center"><strong><a
+																href="https://github.com/REYD-TTS" target="_blank"
+																rel="nofollow noopener noreferrer">REYD</a></strong>
+													</td>
+													<td style="text-align:center"><a
+															href="https://doi.org/10.21437/Interspeech.2022-789"
+															target="_blank" rel="nofollow noopener noreferrer">Webber et
+															al.</a></td>
+													<td>Yiddish</td>
+													<td style="text-align:center">3</td>
+													<td style="text-align:center">8</td>
+													<td style="text-align:center"></td>
+													<td>Found data:<br />archived<br />audiobooks</td>
+												</tr>
+												<tr>
+													<td style="text-align:center"><strong><a
+																href="https://masakhane-io.github.io/bibleTTS/"
+																target="_blank"
+																rel="nofollow noopener noreferrer">BibleTTS</a></strong>
+													</td>
+													<td style="text-align:center"><a
+															href="https://doi.org/10.21437/Interspeech.2022-10850"
+															target="_blank" rel="nofollow noopener noreferrer">Meyer et
+															al.</a></td>
+													<td>10 Sub-Saharan<br />African<br />languages:<ul><small>
+																<li>Akuapem Twi</li>
+																<li>Asante Twi</li>
+																<li>Chichewa</li>
+																<li>Ewe</li>
+																<li>Hausa</li>
+																<li>Kikuyu</li>
+																<li>Lingala</li>
+																<li>Luganda</li>
+																<li>Luo</li>
+																<li>Yoruba</li>
+															</small></ul>
+													</td>
+													<td style="text-align:center">10<br /><small>(one
+															per<br />language)</small></td>
+													<td style="text-align:center">
+														2047<br /><small>(including<br />unaligned)</small></td>
+													<td style="text-align:center">Creative<br />Commons:<br />ShareAlike
+													</td>
+													<td>Bible verses<br />recorded in<br />professional<br />studio</td>
+												</tr>
+												<tr>
+													<td style="text-align:center"><strong><a
+																href="https://sites.google.com/site/shinnosuketakamichi/research-topics/j-mac_corpus?pli=1"
+																target="_blank"
+																rel="nofollow noopener noreferrer">J-MAC</a></strong>
+													</td>
+													<td style="text-align:center"><a
+															href="https://doi.org/10.21437/Interspeech.2022-444"
+															target="_blank" rel="nofollow noopener noreferrer">Takamichi
+															et al.</a></td>
+													<td>Japanese</td>
+													<td style="text-align:center">39</td>
+													<td style="text-align:center">31.5</td>
+													<td style="text-align:center">Research only</td>
+													<td>Found data:<br />audiobooks</td>
+												</tr>
+											</tbody>
+										</table>
+										<p>Three of these four corpora were created from found audiobooks, reiterating
+											the usefulness of this type of data for TTS.</p>
+										<h3><a name="expressive-data" href="#expressive-data"
+												style="box-shadow:none">Data collection for expressivity</a></h3>
+										<p>This year, one growing theme towards more expressive synthesis was research
+											into designing and commissioning more expressive data. The designs explored
+											in these papers were varied, lying on a spectrum from scripted to unscripted
+											text for voice actors. On the fully scripted side was STUDIES by <a
+												href="https://doi.org/10.21437/Interspeech.2022-300" target="_blank"
+												rel="nofollow noopener noreferrer">Saito et al.</a> They wrote
+											interactions between teachers and students to elicit empathetic dialogue and
+											therefore more emotional speech, and found that explicitly giving a TTS
+											system the interlocutor’s (person that the speaker is <em>responding
+												to</em>) emotion label and conversational context embedding resulted in
+											equally natural speech as a system that only used the speaker’s emotion
+											label. <a href="https://doi.org/10.21437/Interspeech.2022-10167"
+												target="_blank" rel="nofollow noopener noreferrer">O’Mahony et al.</a>
+											supplemented LJ Speech with less scripted data from the <a
+												href="https://podcastsdataset.byspotify.com/" target="_blank"
+												rel="nofollow noopener noreferrer">Spotify Podcast dataset</a>. They
+											were able to improve question intonation by incorporating question/answer
+											pairs from the podcasts in their training data. <a
+												href="https://doi.org/10.21437/Interspeech.2022-10802" target="_blank"
+												rel="nofollow noopener noreferrer">Adigwe and Klabbers</a> compared
+											using read-aloud sentences, performed dialogues, and semi-spontaneous
+											dialogues. Beyond finding greater expressivity in the semi-spontaneous
+											dialogues, they also asked voice actors for direct feedback on the different
+											scripts, and found a preference for the multi-speaker setups (performed and
+											semi-spontaneous dialogues). Lastly, <a
+												href="https://doi.org/10.21437/Interspeech.2022-10554" target="_blank"
+												rel="nofollow noopener noreferrer">Delvaux et al.</a> had their speakers
+											tell fully unscripted stories of important memories in order to capture
+											natural emotional speech. Though they expected different dimensions of these
+											memories to yield differences in acoustic parameters, instead they mostly
+											found the emotional effects to have “limited impact”.</p>
+										<p>It seems there is still too much we don’t know about fully spontaneous speech
+											to use it alone for TTS training data. However, there are clear benefits for
+											both naturalness and expressivity to not using fully-scripted texts, and
+											including dialogues. We’re excited to experiment with different ideas
+											ourselves in our own data collections.</p>
+										<h3><a name="data-augmentation" href="#data-augmentation"
+												style="box-shadow:none">Data augmentation</a></h3>
+										<p>We also saw a growing trend in using voice conversion (VC) to augment TTS
+											training data. <a href="https://doi.org/10.21437/Interspeech.2022-10338"
+												target="_blank" rel="nofollow noopener noreferrer">Comini et al.</a>
+											investigated a language-agnostic approach to augmenting 8-10 hours of
+											neutral speech using only an hour of conversation speech, to represent a
+											low-resource setting. They use an F0 predictor to reproduce the
+											conversational target speaker’s F0, and feed this as input to a VC system to
+											create additional training data. They are able to both control F0 in the VC
+											output using their predictor and produce high-quality synthesised speech,
+											using a system trained on this data, either on par or better than the
+											previous best augmented system.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-11278" target="_blank"
+												rel="nofollow noopener noreferrer">Terashima et al.</a> similarly
+											explored using VC to augment data for low-resource expressive TTS, but used
+											algorithmic pitch-shifting on neutral data, rather than training an F0
+											predictor on already expressive data. They use this pitch-shifted data to
+											train the VC model, whose output was then used as training data for a TTS
+											system. They found higher naturalness and emotional similarity in the
+											synthesised speech from the pitch-shifting system, than one trained on the
+											output of a VC model without pitch-shifting.</p>
+										<p>Instead of using VC for training data augmentation, <a
+												href="https://doi.org/10.21437/Interspeech.2022-10195" target="_blank"
+												rel="nofollow noopener noreferrer">Bilínski et al.</a> used normalising
+											flows to generate new speakers that were unseen in the training data, both
+											in TTS and VC. This is particularly interesting for us because our dubbing
+											use case often requires many different speakers for a single video. As the
+											authors point out, adding new speakers for TTS usually requires costly
+											recording time with a new voice actor. So research into alternatives is
+											exciting to see.</p>
+										<p>We’re keen to continue watching the data augmentation space as it grows. Data
+											collection is a huge barrier to scaling TTS, and any methods that alleviate
+											this bottleneck can be beneficial to TTS research as a whole.</p>
+										<h2><a name="front-end" href="#front-end" style="box-shadow:none">Linguistic
+												front-end</a></h2>
+										<p>In recent years, “end-to-end” TTS systems have become increasingly popular.
+											In theory, by operating directly on graphemes rather than phonemes, they
+											remove the need for a front-end text-analysis component. In practice,
+											however, these systems fail to model the complex pronunciation patterns some
+											languages exhibit, resulting in frequent pronunciation errors. This
+											highlights the importance of pronunciation control, which often goes
+											hand-in-hand with a robust linguistic front-end. In line with this, we saw
+											new research on two main front-end problems: homograph disambiguation and
+											prosodic structure prediction.</p>
+										<h3><a name="homographs" href="#homographs" style="box-shadow:none">Homograph
+												disambiguation</a></h3>
+										<p>Homographs are a long-standing issue in grapheme-to-phoneme (G2P) conversion.
+											Data-driven methods have traditionally viewed G2P as a word-level task where
+											the pronunciation of a word can be predicted from its spelling alone;
+											however, the key to correctly interpreting homographs is the linguistic
+											context surrounding the word. In recent years, with the increasing
+											popularity of transformer-based language models in NLP (e.g., the BERT
+											family), we’ve seen a trend shift in homograph disambiguation research
+											towards exploiting contextual information from pre-trained word embeddings,
+											which the work described in this section builds on.</p>
+										<p><a href="http://doi.org/10.21437/Interspeech.2022-229" target="_blank"
+												rel="nofollow noopener noreferrer">Zhang et al.</a> proposed Polyphone
+											BERT, a simple yet effective approach to polyphone disambiguation in
+											Mandarin, i.e. homograph disambiguation in the context of Chinese
+											characters, specifically. Unlike BERT-based methods which make explicit use
+											of word embeddings (e.g. <a
+												href="https://www.amazon.science/publications/homograph-disambiguation-with-contextual-word-embeddings-for-tts-systems"
+												target="_blank" rel="nofollow noopener noreferrer">input to a
+												classifier</a>), the authors leverage the contextual information they
+											encode by fine-tuning a pre-trained BERT model to a pseudo-masked language
+											modelling (MLM) task, achieving excellent results even in highly ambiguous
+											settings.</p>
+										<p>Rather than filling in the blanks, the fine-tuning task consists in replacing
+											polyphonic characters (the “masked” tokens in the input sentence) with
+											contextually appropriate monophonic characters (i.e., their unambiguous
+											counterparts), effectively turning MLM into homograph disambiguation. To
+											this end, the authors established a mapping from <em>polyphonic</em>
+											characters to new (made-up) <em>monophonic</em> characters, one for each
+											possible Pinyin pronunciation (e.g., <em>泊1</em> and <em>泊2</em> for the
+											Chinese polyphone <em>泊</em>), and extended the pre-trained BERT vocabulary
+											to include them. Since the new unambiguous characters have a one-to-one
+											correspondence with Pinyin pronunciations, they can use the model’s
+											predictions to retrieve the correct pronunciation from a Mandarin lexicon at
+											inference time.</p>
+										<p>BERT is also at the foundation of <a
+												href="http://doi.org/10.21437/Interspeech.2022-216" target="_blank"
+												rel="nofollow noopener noreferrer">Chen et al.</a>’s g2pW, another
+											approach to polyphone disambiguation, which, like <a
+												href="https://pypi.org/project/g2pM/" target="_blank"
+												rel="nofollow noopener noreferrer">g2pM</a> two years ago, comes with a
+											<a href="https://pypi.org/project/g2pw/" target="_blank"
+												rel="nofollow noopener noreferrer">user-friendly Python package</a>!
+											While Polyphone BERT adapts BERT’s learnt representations to the task in
+											question, g2pW uses the pre-trained model as a feature extractor that feeds
+											into a more complex architecture with two main components: a
+											weighted-softmax classifier and a part-of-speech (POS) tagger.</p>
+										<p>The input sentence is encoded with BERT to obtain a contextual embedding for
+											the polyphonic character, which is then fed to the POS tagger in order to
+											predict the polyphone’s POS tag. The predicted tag, along with the
+											polyphonic character itself, is in turn used to compute a set of weights for
+											the weighted-softmax classifier, each corresponding to one possible
+											pronunciation of the polyphone. The classifier then determines which
+											candidate pronunciation has the highest probability given the BERT embedding
+											and the conditional weights. This architecture appears to outperform
+											state-of-the-art systems such as last year’s <a
+												href="http://doi.org/10.21437/Interspeech.2021-1087" target="_blank"
+												rel="nofollow noopener noreferrer">PDF</a> on the public <a
+												href="https://github.com/kakaobrain/g2pM#the-cpp-dataset"
+												target="_blank" rel="nofollow noopener noreferrer">CPP dataset</a> (from
+											the <a href="http://doi.org/10.21437/Interspeech.2020-1094" target="_blank"
+												rel="nofollow noopener noreferrer">g2pM paper</a>), but it’s unclear how
+											it compares to Polyphone BERT, as the latter was only evaluated on a small
+											subset of CPP.</p>
+										<p><a name="sound-choice"></a>
+											Classification-based approaches to homograph disambiguation like g2pW often
+											require a separate G2P component to deal with non-homographs or, in the case
+											of Polyphone BERT, retrieve the pronunciation of the word
+											post-disambiguation. Ploujnikov and Ravanelli presented <a
+												href="http://doi.org/10.21437/Interspeech.2022-11066" target="_blank"
+												rel="nofollow noopener noreferrer">SoundChoice</a>, a multi-task
+											learning approach that integrates homograph disambiguation into a
+											sentence-level G2P model with very promising results.</p>
+										<p>The input combines character embeddings and BERT embeddings, derived from the
+											graphemes and words in the input sentence, respectively. This way, the model
+											benefits from both low-level graphemic information, useful for G2P, and
+											high-level contextual information, necessary for disambiguation. The authors
+											also use a weighted homograph loss to amplify the contribution of homograph
+											errors to the overall loss, an important consideration given that low error
+											rates can be achieved without successfully disambiguating homographs —
+											generally, most words aren’t homographs, and only a subset of sentences in
+											the training data contain homographs. We recommend you check out the paper
+											for more details if you’re interested and see the model in action on <a
+												href="https://huggingface.co/speechbrain/soundchoice-g2p"
+												target="_blank" rel="nofollow noopener noreferrer">Hugging Face</a>!</p>
+										<h3><a name="prosodic-structure" href="#prosodic-structure"
+												style="box-shadow:none">Prosodic structure prediction</a></h3>
+										<p>The role pronunciation plays in removing word-level ambiguity is analogous to
+											that of prosody in conveying different meanings for the same sentence. An
+											utterance consists of one or more prosodic phrases, typically arranged
+											hierarchically and delimited by a pause or change in acoustic properties
+											like F0 and duration. This phrasing can affect how we interpret sentences
+											and is precisely what determines the prosodic structure of an utterance.
+											Work on prosodic structure prediction (PSP) this year was characterised by
+											the use of multi-task learning (MTL), a modelling framework frequently used
+											in NLP to jointly solve two or more related subtasks, which, as <a
+												href="#sound-choice">SoundChoice</a> above illustrates, has recently
+											been adopted in linguistic front-end research with great success.</p>
+										<p><a href="http://doi.org/10.21437/Interspeech.2022-131" target="_blank"
+												rel="nofollow noopener noreferrer">Chen et al.</a>’s work on PSP in
+											Mandarin differs from previous MTL approaches (e.g., <a
+												href="http://doi.org/10.21437/Interspeech.2017-949" target="_blank"
+												rel="nofollow noopener noreferrer">Huang et al.</a>, <a
+												href="http://doi.org/10.21437/Interspeech.2019-1400" target="_blank"
+												rel="nofollow noopener noreferrer">Pan et al.</a>) in how much context
+											is provided to the model. Rather than linguistic features derived from the
+											target sentence, which, by themselves, offer limited context on the prosody
+											of the utterance, they condition the model’s predictions on groups of
+											adjacent sentences (within a fixed-size window around the target sentence) —
+											this is especially relevant in the context of long-form TTS, as
+											inter-sentential linguistic information can affect the prosodic structure of
+											the utterance.</p>
+										<p>To this end, their proposed architecture encodes character-, sentence- and
+											discourse-level information from the input sentences into a combined
+											representation. This multi-level contextual representation is then fed to an
+											MTL decoder to predict the boundaries between prosodic constituents for each
+											level of the Mandarin prosodic hierarchy — namely, prosodic word, prosodic
+											phrase and intonational phrase, each regarded as a subtask of PSP in the MTL
+											framework. In order to jointly optimise all subtasks, the authors condition
+											those that correspond to higher-level prosodic constituents on those
+											associated with lower-level ones (i.e., prosodic-phrase prediction gets
+											conditioned on the prosodic-word subtask, and so on). This allows PSP to
+											better model the hierarchical dependencies between the prosodic constituents
+											in the hierarchy, contrary to conventional methods, where each task is
+											viewed as an independent problem.</p>
+										<p><a href="http://doi.org/10.21437/Interspeech.2022-334" target="_blank"
+												rel="nofollow noopener noreferrer">Park et al.</a> presented an
+											MLT-based approach to pitch-accent prediction in Japanese, a task which
+											depends on PSP but is typically treated as a separate problem. Pitch accent,
+											like stress, is a lexical (word-level) feature, but its position can shift
+											when the word is pronounced in context, affecting the prosodic structure of
+											the utterance. Training independent PSP and pitch-accent prediction models
+											thus makes it difficult to capture the relationship between them, which
+											motivates the use of an MTL framework.</p>
+										<p>The authors formulate the problem as sequence classification task where, for
+											each word in the input text, at each position, the model simultaneously
+											predicts whether there’s a phrase boundary and a pitch accent. Similar to
+											the previous paper, this is achieved by sequentially conditioning the
+											individual prediction subtasks according to the Japanese prosodic hierarchy
+											(i.e., pitch-accent prediction gets conditioned on accent-phrase prediction,
+											and intonation-phrase prediction, on accent-phrase prediction). The results
+											show a significant improvement over conventional two-stage methods,
+											suggesting that modelling the relationship between prosodic structure and
+											pitch-accent is beneficial in predicting the latter.</p>
+										<p>While PSP is particularly important for languages like Mandarin and Japanese,
+											we’d be interested to see its potential in TTS systems for non-tonal or
+											pitch-accented languages, perhaps as a form of prosodic control, like the
+											methods we describe in the next section.</p>
+										<h2><a name="expressivity" href="#expressivity"
+												style="box-shadow:none">Expressivity</a></h2>
+										<p>The naturalness of TTS voices has improved massively in the past few years.
+											Neural vocoders and sequence-to-sequence acoustic models were introduced 5-6
+											years ago, and we’ve had time to explore, experiment, and improve within
+											these paradigms. While neither vocoding nor acoustic modelling are perfectly
+											solved, prosody modelling stands out as a part of TTS that really
+											underperforms. When TTS is used for long-form content, it becomes clear that
+											the expressivity is lacking and that the prosody does not capture meaningful
+											information related to the context of an utterance.</p>
+										<h3><a name="control" href="#control" style="box-shadow:none">Control</a></h3>
+										<p>One way to improve the expressivity and appropriateness of synthetic prosody
+											is to use a human-in-the-loop system for control. This year, we saw two
+											primary approaches to creating these systems: 1) modifying TTS models to
+											account for additional prosodic information vs 2) harnessing information
+											already present in the existing architecture.</p>
+										<h4><a name="modifying-architecture" href="#modifying-architecture"
+												style="box-shadow:none">Modifying the architecture</a></h4>
+										<p>On the additional annotations side, <a
+												href="https://doi.org/10.21437/Interspeech.2022-10131" target="_blank"
+												rel="nofollow noopener noreferrer">Shin et al.</a> took a very similar
+											approach to the style-tag paper by <a
+												href="https://doi.org/10.21437/Interspeech.2021-465" target="_blank"
+												rel="nofollow noopener noreferrer">Kim et al.</a> last year, in which
+											crowd-sourced style-tag annotations were used as training data for a TTS
+											system, allowing for free-form style-tag inputs at inference time. However,
+											they adapt the original approach for a multi-speaker setting by adding new
+											loss terms. Their work reiterates the benefits of using this type of
+											approach for control, especially because it is much more flexible than
+											something that relies on specific acoustic features like F0 or energy.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-411" target="_blank"
+												rel="nofollow noopener noreferrer">Seshadri et al.</a> modify FastSpeech
+											2 with an additional emphasis predictor that has a similar architecture as
+											the F0, energy, and duration feature predictors. They show that they are
+											able to use this modified system to generate perceivable emphasis at the
+											word level whilst maintaining good quality synthesis (audio samples <a
+												href="https://apple.github.io/parallel-tts-emphasis-control/"
+												target="_blank" rel="nofollow noopener noreferrer">here</a>).</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-925" target="_blank"
+												rel="nofollow noopener noreferrer">Ju et al.</a> look at directly
+											controlling pitch. TriniTTS is an end-to-end system that, though inspired by
+											<a href="http://proceedings.mlr.press/v139/kim21f/kim21f.pdf"
+												target="_blank" rel="nofollow noopener noreferrer">VITS</a>, differs
+											greatly in that it includes pitch-related modules and does not use sampling.
+											The authors demonstrate that this system is able to achieve better MOS
+											scores in the pitch-control setting than FastPitch with a HiFi-GAN vocoder,
+											and is also able to generate speech faster than VITS.</p>
+										<h4><a name="harnessing-architecture" href="#harnessing-architecture"
+												style="box-shadow:none">Harnessing the existing architecture</a></h4>
+										<p>Contrary to the above approaches, <a
+												href="https://doi.org/10.21437/Interspeech.2022-759" target="_blank"
+												rel="nofollow noopener noreferrer">Lenglet et al.</a> aim to target a
+											specific prosodic parameter for control whilst preserving segmental
+											variations, suprasegmental variations, and co-variations in speech by using
+											the existing embedding space of encoder-decoder TTS models. Specifically,
+											they analyse the encoder embeddings w.r.t. the acoustics to figure out how
+											to bias these embeddings and therefore control the speaking rate. We
+											appreciate the benefits of such an approach: maintaining co-variation whilst
+											simultaneously allowing for specific control could improve the efficiency
+											and naturalness of control. This is something our <a
+												href="https://engineering.papercup.com/posts/Ctrl-P/" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a> model, and other systems
+											with explicit prosodic inputs like FastSpeech2, do not currently do.
+											Maintaining co-variation directly trades off with disentangled control over
+											the acoustic features, and the optimal behaviour will depend on the use case
+											of these controls.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-6" target="_blank"
+												rel="nofollow noopener noreferrer">Tae et al.</a> harness score-based
+											generative modelling to allow granular editing of content and pitch without
+											any additional training, optimisation, or architectural modifications. They
+											do this by perturbing the Gaussian prior space whilst also applying masks
+											and softening kernels to focus the edits only in the target region. Check
+											out their samples page <a href="https://editts.github.io/" target="_blank"
+												rel="nofollow noopener noreferrer">here</a>.</p>
+										<h3><a name="context" href="#context" style="box-shadow:none">Context for
+												prosody modelling</a></h3>
+										<p>In addition to pursuing controllable TTS, it’s also necessary to improve the
+											appropriateness of predicted prosody without human control. We were excited
+											to see a range of papers incorporating new information to the prosody model.
+										</p>
+										<p>The context provided for prosody modelling can involve new features to
+											provide additional types of information for the current utterance, or
+											information from the surrounding utterances. Recently, we’ve seen many works
+											using pre-trained language models as an additional type of context
+											information. We’ve also seen more papers incorporating the previous sentence
+											as context to determine an appropriate prosodic rendition.</p>
+										<p>In particular, research from <a
+												href="https://doi.org/10.21437/Interspeech.2022-259" target="_blank"
+												rel="nofollow noopener noreferrer">Mitsui et al.</a> did both! They used
+											BERT to summarise both the current sentence and the past 10 sentences. Two
+											summary vectors (for the current sentence and the past context) are used to
+											predict an utterance-level acoustic latent variable. The utterance-level
+											latent is predicted with an LSTM for a sequence of sentences in a dialogue!
+											This sentence-level style predictor for dialogue was able to significantly
+											improve MOS compared to a typical VITS TTS model, both for isolated
+											sentences and for 1-2 mins dialogues. Seeing such an improvement for longer
+											form stimuli is amazing. One of our native Japanese speakers was very
+											impressed at the quality of <a
+												href="https://rinnakk.github.io/research/publications/DialogueTTS/"
+												target="_blank" rel="nofollow noopener noreferrer">their samples</a>,
+											stating that the dialogue was natural and convincing. We’d be very
+											interested in any follow-up analysis comparing their top-line performance
+											(using oracle embeddings) to human speech.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-403" target="_blank"
+												rel="nofollow noopener noreferrer">Nishimura et al.</a> also proposed a
+											TTS model for dialogue speech. Their approach combined context information
+											from both the text and audio, though the contribution of each modality was
+											not analysed. While they explored various additions to the model, we were
+											most interested in their idea to fine-tune a wav2vec 2.0 model for their
+											prosody prediction task. Unfortunately, their model performed better when
+											trained from scratch. This may be due to their choice of pre-trained model,
+											we hope that pre-training for prosody prediction can be useful if the
+											self-supervised pre-training loss is designed with prosody in mind.</p>
+										<p>The last three papers were all from the TTS team at Amazon, all working on
+											expressive speech. <a href="https://doi.org/10.21437/Interspeech.2022-379"
+												target="_blank" rel="nofollow noopener noreferrer">Makarov et al.</a>
+											incorporated and studied three design choices in a TTS model: training with
+											multiple speakers, using large language models, and providing wider context.
+											We believe that this is the first work to successfully improve TTS by using
+											BERT directly for acoustic modelling (i.e. as input to the acoustic
+											decoder), <a href="https://doi.org/10.48550/arXiv.2011.01175"
+												target="_blank" rel="nofollow noopener noreferrer">previous
+												approaches</a> have used language models specifically for prosody
+											modelling. In addition, this is the first paper to show such successful
+											results by incorporating wider context! They also performed analysis of the
+											impact on duration prediction, finding that BERT does not improve phone
+											duration prediction, but it does improve pause prediction.</p>
+										<p>The next paper, from <a href="https://doi.org/10.21437/Interspeech.2022-367"
+												target="_blank" rel="nofollow noopener noreferrer">Karlapati et al.</a>,
+											extends CopyCat, a voice conversion model. In CopyCat2, they learn to
+											predict prosody using a pre-trained BERT model, this means the model is also
+											capable of TTS. They demonstrate that CopyCat2 is able to improve speaker
+											similarity for voice conversion compared to CopyCat, suggesting that the
+											word-level prosody representation enables better speaker disentanglement
+											compared to using 16-frame windows. They also show that CopyCat2 has higher
+											naturalness than <a href="https://doi.org/10.1109/ICASSP39728.2021.9413696"
+												target="_blank" rel="nofollow noopener noreferrer">Kathaka</a>, a TTS
+											model with a sentence-level prosody representation. This suggests that a
+											word-level prosody representation has higher capacity and is still
+											predictable.</p>
+										<p>And our final instalment from Amazon on prosody comes from <a
+												href="https://doi.org/10.21437/Interspeech.2022-384" target="_blank"
+												rel="nofollow noopener noreferrer">Abbas et al.</a> They look at
+											improving duration prediction (including pause placement) using a BERT model
+											and two different modelling approaches. In their first model, phrase breaks
+											are predicted using BERT, this prediction is used to help drive duration
+											prediction. Their second model, Cauliflow, is a normalising flow duration
+											model. Here, they represent phrase-break information as “pause rate” but
+											don’t directly supervise with a phrase-break loss. Cauliflow uses the same
+											inputs as their first approach (including BERT) with the addition of pause
+											rate and speaking rate. For human-in-the-loop control, pause rate should be
+											easier to operate compared to placing phrase breaks. Finally, they show that
+											a model without phrase-break supervision incorrectly captures a uni-modal
+											duration distribution, while both of their models capture a duration
+											distribution more similar to human speech.</p>
+										<h3><a name="styles" href="#styles" style="box-shadow:none">Improving specific
+												styles</a></h3>
+										<p>Another promising approach to improving the utility of TTS models is to
+											introduce new data specifically for a given use case. <a
+												href="http://doi.org/10.21437/Interspeech.2022-10167" target="_blank"
+												rel="nofollow noopener noreferrer">O’Mahony et al.</a> demonstrate this
+											for conversational style speech. As discussed <a
+												href="#expressive-data">above</a>, they compare a model trained on LJ
+											Speech with a model trained on a data mix, including 15h of conversational
+											question and answer data. This new data was filtered from the <a
+												href="https://podcastsdataset.byspotify.com/" target="_blank"
+												rel="nofollow noopener noreferrer">Spotify podcast dataset</a> and
+											consists of about 15,000 speakers. They found that the datamix model
+											improved performance on question prosody. However, answers were unaffected.
+											This is unsurprising as in this paper TTS was performed on isolated
+											sentences, meaning answers could not be delivered appropriately to the
+											question context. The breakdown by questions and answers is an excellent
+											demonstration of how to provide more insight about our models. We look
+											forward to seeing further work on this question-answer dataset.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2022-10761" target="_blank"
+												rel="nofollow noopener noreferrer">Zaïdi et al.</a> propose a
+											FastPitch-like model with a reference encoder that can adjust prosody and
+											acoustic predictions. Their paper focuses on their model’s ability to
+											achieve prosody transfer across text and uses LJ Speech, 5 neutral speakers,
+											and 7 speakers with highly expressive performances. Through the lens of
+											improving specific styles, we were curious about how the non-expressive
+											speakers performed. From their <a
+												href="https://ubisoft-laforge.github.io/speech/daft-exprt/#more"
+												target="_blank" rel="nofollow noopener noreferrer">samples page</a>, we
+											can hear that expressive speakers 1 and 2 produce a style more closely
+											matching the characteristics of the reference compared to the non-expressive
+											speakers. Interestingly, we thought speaker 3 had less expressive range than
+											the other expressive speakers, and we thought LJ Speech had slightly more
+											range than the non-expressive speakers. This suggests that, at least for
+											this model, the capability to produce new styles is limited by the speaker’s
+											data, which lines up with observations from our <a
+												href="https://engineering.papercup.com/posts/Ctrl-P/" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a> model as well.</p>
+										<p>The final paper (also discussed <a href="#data-augmentation">above</a>)
+											provides a potential solution to this: collect a small amount of expressive
+											speech for a single speaker and augment the speaker’s data using voice
+											conversion (VC). <a href="https://doi.org/10.21437/Interspeech.2022-10338"
+												target="_blank" rel="nofollow noopener noreferrer">Comini et al.</a>
+											applies this approach to low-resource expressive TTS and demonstrates
+											results for several languages. Their F0-conditioned VC model is used to keep
+											the target speaker’s prosody independent from the source speaker’s prosody.
+											The F0 values are predicted by a model fine-tuned on the expressive data. In
+											a MUSHRA test, their use of F0-conditioned VC significantly improves
+											naturalness for 5 out of 9 speakers. Unfortunately, we can’t comment on how
+											well this works for improving the conversational style as no results were
+											presented on the faithfulness of the synthesised style, and no baselines
+											using non-augmented data were presented.</p>
+										<p>Thanks to everyone who presented at Interspeech, it was great to attend the
+											conference in person and we’re looking forward to the next one! Look out for
+											us next time and come say hi. And if you’re interested in working with us
+											take a look through <a href="https://papercup.jobs.personio.de"
+												target="_blank" rel="nofollow noopener noreferrer">our open roles</a>!
+										</p>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
