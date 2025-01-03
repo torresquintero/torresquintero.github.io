@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Tutorial on Declipping Wav Files</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was originally published on the
+										<a href="https://engineering.papercup.com/posts/declipping">
+											Papercup Engineering Blog
+										</a>
+										on 24 February 2020
+									</div>
+									<hr>
+									<h1>Tutorial on declipping wav files</h1>
+									<img src="../images/paperclips.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>In this post, I introduce the problem of clipped audio when sound is recorded
+											through a microphone. The post does not assume a signal processing
+											background,
+											but does assume Python programming knowledge. Though the tutorial will go
+											through major parts of the declipping process, the full script can be found
+											at
+											<a href="https://github.com/papercup-open-source/tutorials/tree/master/declipping"
+												target="_blank" rel="nofollow noopener noreferrer">our Github
+												repository</a>.
+										</p>
+										<h2>What is clipping?</h2>
+										<p>Signals in longitudinal waves traverse through space through the oscillation
+											of
+											particles. As particles move back and forth, they push against each other.
+											Thus,
+											even though a single particle only moves a short distance, the signal in the
+											wave is smoothly propagated through space. Dr. Daniel Russell gives an <a
+												href="https://www.acs.psu.edu/drussell/Demos/waves/wavemotion.html"
+												target="_blank" rel="nofollow noopener noreferrer">excellent
+												demonstration</a> of this phenomenon with a 1D longitudinal wave, in
+											which a
+											signal is propagated in one direction, from left to right:</p>
+										<p><img src="https://www.acs.psu.edu/drussell/Demos/waves/Lwave-Red-2.gif" />
+										</p>
+										<p>Though sound waves are 3-dimensional, the principal of signal propagation is
+											the
+											same. Air particles push against each other, oscillating back and forth to
+											propagate the sound signal through space. The amplitude of a longitudinal
+											wave
+											corresponds to the displacement of individual particles: how far they
+											oscillate
+											before returning to their position of equilibrium. In sound, we perceive
+											amplitude as volume. The louder a sound signal is, the further the air
+											particles
+											are moving back and forth to propagate the signal before returning to their
+											original state.</p>
+										<p>The task of a microphone is convert this physical acoustic signal into
+											electrical
+											energy that can then be interpreted by computers, or passed on to speakers,
+											etc.
+											Microphones do this by using what is called a diaphragm: a thin flexible
+											material that vibrates back and forth when bombarded by oscillating air
+											particles in a sound wave. Unlike the oscillation of air particles, the
+											oscillation of the diaphragm can be constrained in two ways: both by the
+											physical space containing the diaphragm, and the power supply to it. In this
+											way, microphones have a minimum and maximum amplitude that they can handle.
+											If
+											the original sound signal is at a volume (amplitude) too great for the
+											diaphragm, the signal becomes “clipped”; some of the original acoustic
+											signal is
+											too loud to be converted into electrical energy. You can hear what this
+											sounds
+											like in the sample below.</p>
+										<audio controls="">
+											<source src="../audio/original.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>Here, the clipping is particularly prevalent in the word “fascinating”, which
+											sounds quite <em>buzzy</em> compared to other words in the utterance.</p>
+										<h3>Why is this a problem for TTS?</h3>
+										<p>Neural text-to-speech (TTS) relies on having hours of recorded speech data
+											divided into short utterances, such as the sample above. Through providing a
+											neural model with hundreds or thousands of these training samples, paired
+											with
+											their corresponding text, it learns to create a mapping between the written
+											text
+											and the speech. Given enough data and training time, the model will
+											eventually
+											be able to synthesise new utterances that weren’t present in the training
+											data.
+										</p>
+										<p>Because the neural model is trained on many of these samples, if only one or
+											two
+											contain clipping, the model will probably learn to ignore it as an anomaly;
+											it
+											won’t produce clipped speech. However, if the clipping is prevalent in the
+											training data, the model will learn to replicate it as part of the target
+											sound.
+											This is particularly problematic when training with public domain data,
+											where it
+											is impossible to send the bad utterances back to studio to be rerecorded. To
+											address this issue, we developed a system to identify clipped segments in
+											audio
+											files, and “declip” them.</p>
+										<h2>What is declipping?</h2>
+										<p>Declipping is the process by which we use interpolation to estimate the
+											signal at
+											its clipped segments, using information in the original signal that we know
+											to
+											be non-clipped. In this tutorial, we will walk through a three-step process
+											to
+											declip the clipped audio file above. First, we will see how to identify the
+											clipped segments in the waveform. Then, we will see how to fix each of these
+											segments, in an effort to restore what we hypothesise to be the original
+											signal.
+											Finally, we will see how to save our edited waveform as a new audio file.
+										</p>
+										<h3>Identifying clipped segments</h3>
+										<p>Visually, identifying clipped segments is pretty straightforward. Below is a
+											6ms
+											segment of the waveform from the clipped audio above. This segment occurs
+											inside
+											of the “a” vowel within the word “fascinating”.
+											<span
+												style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:800px">
+												<a href="../images/bad_segment.png" style="display:block"
+													target="_blank" rel="noopener">
+													<span
+														style="padding-bottom:47.098976109215016%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAB7CAAAewgFu0HU+AAABKElEQVQoz21Si5LDIAjs/39pXybV+Eg0wu1i07tmzhlKXWBZghcRUR763jt8//KHne9n/OC58KeUoiF4+E2dq1pr1ZSqrmvV1oY/8FKq5jzwWjedpqrLUnTf2y9hSskI0UgfD8P19VIQqW4b4wrCgc/zwBijMS+lhto/hDFGI9x31edT0FnQWaBE1HtBkYBo4M4JCEe8FDHCGE+EvTOYLZEKrtfhc2ayYqThb7ehlIoHJv8rzKhclvDpeL+LFXk/jGS8k5B3NsNnN+UhsP5EmFJEYgApE8Q6Y+/WgKqJc3SOTZz/OT4JqZQKT0uJCAZbyHv7X4eqOf75cHwuaMfHb+1NyPdDe6HKuQWbW6FktidCv64Fi/Iwh+IR28DCJc5zhJgCP9lb5PkBwkm/o9XvxfQAAAAASUVORK5CYII=&#x27;);background-size:cover;display:block"></span>
+													<img alt="bad segment" title="bad segment"
+														src="../images/bad_segment.png"
+														srcSet="../images/bad_segment.png 293w, ../images/bad_segment.png 585w, ../images/bad_segment.png 1170w, ../images/bad_segment.png 1755w, ../images/bad_segment.png 2032w"
+														sizes="(max-width: 800px) 100vw, 1170px"
+														style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+														loading="lazy" />
+												</a>
+											</span>
+										</p>
+										<p>Here we can see that the waveform plateaus at minimum and maximum values.
+											Note
+											that the y-axis in this image is unitless; we will come back to this when it
+											is
+											time to save the new declipped audio file. So the plateaus are visually
+											obvious,
+											but how can we identify them programmatically? To do so, we first need to
+											convert the audio file into a numpy array. Assume here that the audio file
+											is a
+											<code class="language-text">.wav</code> as opposed to an <code
+												class="language-text">.mp3</code> or other audio file format.
+										</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python"><span class="token keyword">from</span> scipy<span class="token punctuation">.</span>io<span class="token punctuation">.</span>wavfile <span class="token keyword">import</span> read
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+sample_rate<span class="token punctuation">,</span> file_info <span class="token operator">=</span> read<span class="token punctuation">(</span>wav_path<span class="token punctuation">)</span>
+np_array <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>file_info<span class="token punctuation">,</span> dtype<span class="token operator">=</span><span class="token builtin">float</span><span class="token punctuation">)</span></code></pre>
+										</div>
+										<p>Then we need to store the max and min of this numpy array. We will use this
+											information to determine if a particular waveform sample is inside of a
+											clipped
+											segment or not.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">nmax <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>np_array<span class="token punctuation">)</span>
+nmin <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>np_array<span class="token punctuation">)</span></code></pre>
+										</div>
+										<p>Ultimately, we want to return a list of all of the clipped segments, so we
+											instantiate an empty <code class="language-text">clipped_segments</code>
+											list
+											that will be filled as we loop through every sample in the numpy array.
+											Additionally, as we loop through, we want to keep track of whether or not we
+											are
+											currently inside of a clipped segment, as well as the start and end indices
+											of
+											the current clipped segment. So we predefine these variables as well.</p>
+										<div data-language="python">
+											<pre class="language-python"><code class="language-python">clipped_segments <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+inside_clip <span class="token operator">=</span> <span class="token boolean">False</span>
+clip_start <span class="token operator">=</span> <span class="token number">0</span>
+clip_end <span class="token operator">=</span> <span class="token number">0</span></code></pre>
+										</div>
+										<p>Now we are ready to loop through our numpy array.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python"><span class="token keyword">for</span> i<span class="token punctuation">,</span> sample <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>np_array<span class="token punctuation">)</span><span class="token punctuation">:</span></code></pre>
+										</div>
+										<p>If a certain sample is equal to or extremely close to the max or min of the
+											array, then we identify this as a clipped sample. If we haven’t determined
+											that
+											we are already inside of a clipped segment, then we declare that we are
+											indeed
+											in a clipped segment, and this clipped sample is the first clipped sample of
+											that segment.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    <span class="token keyword">if</span> <span class="token punctuation">(</span>sample <span class="token operator">&lt;=</span> nmin <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span>sample <span class="token operator">&gt;=</span> nmax <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># sample equal to or extremely close to max or min</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> inside_clip<span class="token punctuation">:</span>
+            inside_clip <span class="token operator">=</span> <span class="token boolean">True</span>  <span class="token comment"># declare we are inside clipped segment</span>
+            clip_start <span class="token operator">=</span> i  <span class="token comment"># this is the first clipped sample</span></code></pre>
+										</div>
+										<p>But if the sample is not equal to or extremely close to the max or min, then
+											we
+											know we are now not inside of a clipped segment. So if we were in a clipped
+											segment before, we can now identify the previous sample as the end of that
+											segment. Now we know the start and end of our clipped segment, which we can
+											store as a tuple, and then add to our list of clipped segments.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    <span class="token keyword">elif</span> inside_clip<span class="token punctuation">:</span>
+        inside_clip <span class="token operator">=</span> <span class="token boolean">False</span>  <span class="token comment"># not longer inside clipped segment</span>
+        clip_end <span class="token operator">=</span> i<span class="token operator">-</span><span class="token number">1</span>  <span class="token comment"># previous sample is end of segment</span>
+        clipped_segment <span class="token operator">=</span> <span class="token punctuation">(</span>clip_start<span class="token punctuation">,</span> clip_end<span class="token punctuation">)</span>  <span class="token comment"># save segment as tuple</span>
+        clipped_segments<span class="token punctuation">.</span>append<span class="token punctuation">(</span>clipped_segment<span class="token punctuation">)</span>  <span class="token comment"># store tuple in list of clipped segments</span></code></pre>
+										</div>
+										<h3>Fixing the segments</h3>
+										<p>Recall from above that the objective is to use the non-clipped information
+											outwith<sup id="fnref-1"><a href="#fn-1" class="footnote-ref">1</a></sup>
+											the
+											segment to estimate what the signal would have looked like were the
+											microphone’s
+											diaphragm not pushed to its limits. We can do this with interpolation using
+											the
+											<code class="language-text">scipy</code> library again. We’re also going to
+											import <code class="language-text">matplotlib.pyplot</code> so that we can
+											see
+											the results of our declipping in action. Now that we have identified where
+											the
+											clipping occurs, we want to loop through each of these segments and declip
+											them
+											one by one. Since we will also be saving our new predicted values to a new
+											array, let’s make a copy of the original array now.
+										</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python"><span class="token keyword">from</span> scipy<span class="token punctuation">.</span>interpolate <span class="token keyword">import</span> interp1d
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+new_array <span class="token operator">=</span> np_array<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># make copy of original np_array</span>
+<span class="token keyword">for</span> segment <span class="token keyword">in</span> clipped_segments<span class="token punctuation">:</span></code></pre>
+										</div>
+										<p>First we should get a few of the samples surrounding the segment that we know
+											are
+											not clipped. Let’s say 5 samples before and after.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    start <span class="token operator">=</span> segment<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    end <span class="token operator">=</span> segment<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+    x_true <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span>start <span class="token operator">-</span> <span class="token number">5</span><span class="token punctuation">,</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span>end <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> end <span class="token operator">+</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    y_true <span class="token operator">=</span> <span class="token punctuation">[</span>np_array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> x_true<span class="token punctuation">]</span></code></pre>
+										</div>
+										<p>Now we can use interpolation to define a function to predict the missing
+											values.
+											Note that we want to use cubic interpolation, as opposed to linear, to
+											accommodate for the curvy shape of the waveform. Then we can get a list of
+											all
+											the sample indices (<code class="language-text">x_axis</code>) we want to
+											pass
+											through this function. And finally we can generate our new sample values
+											(<code class="language-text">y_axis</code>).</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    interpolation_function <span class="token operator">=</span> interp1d<span class="token punctuation">(</span>x_true<span class="token punctuation">,</span> y_true<span class="token punctuation">,</span> kind<span class="token operator">=</span><span class="token string">&#x27;cubic&#x27;</span><span class="token punctuation">)</span>  <span class="token comment"># function to predict missing values</span>
+    x_axis <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span>start <span class="token operator">-</span> <span class="token number">5</span><span class="token punctuation">,</span> end <span class="token operator">+</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># indices to pass through function</span>
+    y_axis_new <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> interpolation_function<span class="token punctuation">(</span>x_axis<span class="token punctuation">)</span><span class="token punctuation">]</span>  <span class="token comment"># new sample values</span></code></pre>
+										</div>
+										<p>Let’s see what this function did, by plotting the original sample values
+											against
+											the new values we’ve just calculated.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    y_axis_old <span class="token operator">=</span> <span class="token punctuation">[</span>np_array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> x_axis<span class="token punctuation">]</span>  <span class="token comment"># original values</span>
+
+    plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x_axis<span class="token punctuation">,</span> y_axis_old<span class="token punctuation">,</span><span class="token string">&#x27;bo-&#x27;</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x_axis<span class="token punctuation">,</span> y_axis_new<span class="token punctuation">,</span><span class="token string">&#x27;r--&#x27;</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+										</div>
+										<p>Below are the first two clipped segments, with the original values shown in
+											blue
+											and our predicted new values in red, from the clipped audio sample above.
+											Note
+											that the x-axis here is just the <code class="language-text">np_array</code>
+											indices. If we wanted to see the time in seconds instead, we could divide
+											each
+											x-axis value by the sample rate, which for this wav file is 48khz.</p>
+										<div style="display:flex;margin-top:-10px">
+											<div style="flex:50%">
+												<span
+													style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:800px">
+													<a href="../images/declipped_1.png" style="display:block"
+														target="_blank" rel="noopener">
+														<span
+															style="padding-bottom:68.25938566552901%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAB7CAAAewgFu0HU+AAABlElEQVQ4y52Ti46DIBBF+/9fuE2aTe22adcHKCIPRe96sVptu8lmJ8GBYTxcBth1XYfb7QYhBJqmgTEm+rn51qIsFEQ6tVppOG9f8jim7UII0FpDKYVhGPBs4mxw/tD4/mxwPTQQX2Pu1WAI21xC+77HjgrTNIWUMgZoBDPdCY0mbzY/cs6UHtW5QnltGIhxMwI5FxUSVpblBLwv7HQLcVITpB8e7Q7g10qL4qjQ2S5ueQFSbl3Xi0KazxX68FA8+bv6OJ5ifRdQnO1YtjuQW86ybLPlOhsTMvMEW/thgT9quFJYVVVsM9CMpxm6VT2fDmsNm/2yZSrklaFCTvXOoy31W3XPtgZvasgrQ4XcSpHUaF34Vd0r9I1CAlXN0/KwuY5KZ9hf2gbIT57nkJVEK2sMvsN/bAMMfYAYn1ea8LUEhPG68ICofvYszTrG8RybX9sCpElZYr8/wDmHy+USXw9XPR6PMbkoCpxOpzifJEkcs1SM0bdtuwVyJeds7HOSSmjW2phIFd776RWNUI4ZZ399G34A6ztJUE6Fhr0AAAAASUVORK5CYII=&#x27;);background-size:cover;display:block"></span>
+														<img alt="declipped 1" title="declipped 1"
+															src="../images/declipped_1.png"
+															srcSet="../images/declipped_1.png 293w, ../images/declipped_1.png 585w, ../images/declipped_1.png 1170w, ../images/declipped_1.png 1280w"
+															sizes="(max-width: 800px) 100vw, 1170px"
+															style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+															loading="lazy" />
+													</a>
+												</span>
+											</div>
+											<div style="flex:50%">
+												<span
+													style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:800px">
+													<a href="../images/declipped_2.png" style="display:block"
+														target="_blank" rel="noopener">
+														<span
+															style="padding-bottom:68.25938566552901%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAB7CAAAewgFu0HU+AAABo0lEQVQ4y5VTiW7DIAzd/3/hJu3Q0mZJm+bizAG82aQhyVZpmiUwGPP8bMOTcw5aa0gpoZSCMSbujdFRD6PFaCVGIzDxGBSGyaZznfwNWJ7meUZZlmiaBo+kvwz4epH4ejU4vWicnxX6wvzyY1Dv/QJ4u93QdV00sAQfom7poigkMQLsABga1gaY1qL+6DBPHtGTJmYYQlgAr9cr2rbdAHniUpTiHj/8GDTTveqtiyALwx1gXdeJ4f0c9afEbKblMhnZvo3FyRF1kS9BDaWcAH+lTDZTyQ1sB7pGXEG7QsMpSyWxWw25IfuUdaXg7LS7GFLxE8M1AJ1VmYGSd4bTNEWGDMgG7zyaTCTnhVk4dPTIOoCuxC4fUmaW7MT0nbaHtB5J+JF66jJPa8rOBfRnYuf8gcFf4wC4RhSKfoGgWlR2eyn/kATIjbDW4HppUL53dOQxzy42iL/lqvfrRzrVkA1cw74TlHqPc36GEAJ5nqPvexRFEd8p+/Can9fpdIp/P8uy5Msli395T3tha2Mk1rwfxzGy4NewrlefYRiiD2u2s3wDn8dIHTPQJsUAAAAASUVORK5CYII=&#x27;);background-size:cover;display:block"></span>
+														<img alt="declipped 2" title="declipped 2"
+															src="../images/declipped_2.png"
+															srcSet="../images/declipped_2.png 293w, ../images/declipped_2.png 585w, ../images/declipped_2.png 1170w, ../images/declipped_2.png 1280w"
+															sizes="(max-width: 800px) 100vw, 1170px"
+															style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+															loading="lazy" />
+													</a>
+												</span>
+											</div>
+										</div>
+										<p>Now we can finally update the numpy array with the new values.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">    <span class="token keyword">for</span> i<span class="token punctuation">,</span> x <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>x_axis<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> start <span class="token operator">&lt;=</span> x <span class="token operator">&lt;=</span> end<span class="token punctuation">:</span>
+            new_array<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> y_axis_new<span class="token punctuation">[</span>i<span class="token punctuation">]</span></code></pre>
+										</div>
+										<p>Recall the 6ms segment from above showing the plateaus. If we plot this
+											segment
+											in the new array, we can see that the plateaus have now been interpolated
+											with
+											our predicted values.
+											<span
+												style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:800px">
+												<a href="../images/bad_segment_declipped.png" style="display:block"
+													target="_blank" rel="noopener">
+													<span
+														style="padding-bottom:47.098976109215016%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAB7CAAAewgFu0HU+AAABDUlEQVQoz3VSjdKDIAzb+z/p/pTpEEW0+RL6Obc75a6CbUjTlouZQUv7uq6nBhz7zbbdeS76yJFSQs4ZpczcZ8zzr4Vw5M94vWYMw4hlKTthjBFd19EJAqqfYKn2cyH28fCzMLJtNQ1IWCjqi3CaJjojLxrud6vy29YwjsZkxmT+L3/TGPGG99vjEhDjF+FWu0hz1kXgdtuAIBl42c/XqyvSf9+jJgvhQKH61xMhoEyKNIdhUKKdQGQqV0nUkhCsxlIqvz3UIGJMeD7tv29WzdV7uVJz5FfCwiaXsuyEUqehnC2VL0Vna6FskX4I9Vwa1qNpq5eBjfGnEtj4kbGuxreY8BIgvOItG+9vFfgD2JPB6dbhT3wAAAAASUVORK5CYII=&#x27;);background-size:cover;display:block"></span>
+													<img alt="bad segment declipped" title="bad segment declipped"
+														src="../images/bad_segment_declipped.png"
+														srcSet="../images/bad_segment_declipped.png 293w, ../images/bad_segment_declipped.png 585w, ../images/bad_segment_declipped.png 1170w, ../images/bad_segment_declipped.png 1755w, ../images/bad_segment_declipped.png 2034w"
+														sizes="(max-width: 800px) 100vw, 1170px"
+														style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+														loading="lazy" />
+												</a>
+											</span>
+										</p>
+										<h3>Saving the new array as a wav file</h3>
+										<p>Note that the scale of the y-axis in the 6ms segment has grown because we
+											have
+											predicted new values above the original min and max. The original scale was
+											dependant on the limits of numpy arrays. So if we simply tried to save this
+											array as-is, we would actually produce overflow. Let’s try it now.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python"><span class="token keyword">from</span> scipy<span class="token punctuation">.</span>io<span class="token punctuation">.</span>wavfile <span class="token keyword">import</span> read<span class="token punctuation">,</span> write
+
+write<span class="token punctuation">(</span><span class="token string">&quot;bad_file.wav&quot;</span><span class="token punctuation">,</span> sample_rate<span class="token punctuation">,</span> new_array<span class="token punctuation">)</span></code></pre>
+										</div>
+										<p>Notice that the file sounds even worse than before due to overflow.
+											<strong>Warning: I would not recommend listening to this sample through
+												headphones.</strong>
+										</p>
+										<audio controls="">
+											<source src="../audio/bad_file.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>To avoid this overflow, we need to rescale the y-axis so that it is between
+											-32768.0 and 32768, as constrained by the numpy array. We can do this by
+											first
+											finding the maximum or minimum value of the new array, dividing the new
+											array by
+											that value, and then multiplying the new array by 32768.0. Finally, we
+											declare
+											the new array as 16-bit.</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">new_max <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span><span class="token builtin">abs</span><span class="token punctuation">(</span>new_array<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># find new maximum</span>
+new_array <span class="token operator">=</span> np<span class="token punctuation">.</span>divide<span class="token punctuation">(</span>new_array<span class="token punctuation">,</span> new_max<span class="token punctuation">)</span>  <span class="token comment"># divide by maximum</span>
+new_array <span class="token operator">=</span> np<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span>new_array<span class="token punctuation">,</span> <span class="token number">32768.0</span><span class="token punctuation">)</span>  <span class="token comment"># multiply by old maximum</span>
+new_array <span class="token operator">=</span> new_array<span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">&#x27;int16&#x27;</span><span class="token punctuation">)</span>  <span class="token comment"># 16-bit</span></code></pre>
+										</div>
+										<p>If we look at the 6ms segment now, we’ll see that it is again between
+											-32768.0
+											and 32768, as it was before it was declipped.</p>
+										<p><span
+												style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:800px">
+												<a href="../images/bad_segment_declipped_rescaled.png"
+													style="display:block" target="_blank" rel="noopener">
+													<span
+														style="padding-bottom:46.75767918088737%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAB7CAAAewgFu0HU+AAABE0lEQVQoz31S7ZLDIAjs+79of3TSJBo/o3AsnLG9m9YZAm5gXdAbETEWfO/9oxF9xwfPDR8AMUbOOXOtVe086xXnXHldK5cyMcTIAR5j1vgiPI6D930XYpYExaUIqi0G/nhY3JqZdWV4a10PuQihDKTnSZJAkkD8fBKnRIITe2/73om3jTgEM8SiQ9S2STh6LyULQWfnmO93Uj/Me1O+LKZIzlYiHBYCfHtvGfNzUukcaTE8VMZoKoeadTUcRMChHMQx/iFMKQmJl7bm3F4X8FLmfuQYGetNv80QhF6kzacwnhAqu861Vvp9IvMf9rDW2v9LWWRAQQaCGDeOBHjsnTuk3U1UFml9038YEfJTyorhEKwfxmfB+Bl733YAAAAASUVORK5CYII=&#x27;);background-size:cover;display:block"></span>
+													<img alt="bad segment declipped rescaled"
+														title="bad segment declipped rescaled"
+														src="../images/bad_segment_declipped_rescaled.png"
+														srcSet="../images/bad_segment_declipped_rescaled.png 293w, ../images/bad_segment_declipped_rescaled.png 585w, ../images/bad_segment_declipped_rescaled.png 1170w, ../images/bad_segment_declipped_rescaled.png 1755w, ../images/bad_segment_declipped_rescaled.png 2048w"
+														sizes="(max-width: 800px) 100vw, 1170px"
+														style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+														loading="lazy" />
+												</a>
+											</span></p>
+										<p>We are finally ready to save the file!</p>
+										<div data-language="python">
+											<pre
+												class="language-python"><code class="language-python">write<span class="token punctuation">(</span><span class="token string">&quot;new_wav.wav&quot;</span><span class="token punctuation">,</span> sample_rate<span class="token punctuation">,</span> new_array<span class="token punctuation">)</span></code></pre>
+										</div>
+										<p>Notice that the new file sounds quieter than the original. This is because we
+											rescaled the y-axis to accommodate for our predicted values. We increased
+											the
+											maximum and minimum amplitude, and so all the original values now have a
+											lower
+											volume.</p>
+										<audio controls="">
+											<source src="../audio/declipped.wav" type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>Notice also that the file still sounds buzzy in some of the places where it
+											was
+											clipped before, such as in the word “fascinating”. This is because we can
+											never
+											truly recover the original signal, as it was lost at recording time when the
+											microphone’s diaphragm maxed out. However, the buzziness is hopefully less
+											stark
+											than it was before, and now more easily ignorable by our neural TTS system.
+										</p>
+										<div class="footnotes">
+											<hr />
+											<ol>
+												<li id="fn-1">
+													<p>This Scottish preposition is the opposite of “within”. In
+														non-Scottish dialects of English, it roughly means “outside of”.
+														I
+														picked up this word when I was doing my Master’s in Edinburgh,
+														and I
+														think it’s very useful and severely underused!</p>
+													<a href="#fnref-1" class="footnote-backref">↩</a>
+												</li>
+											</ol>
+										</div>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
