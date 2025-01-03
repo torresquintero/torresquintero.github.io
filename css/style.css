@@ -440,7 +440,7 @@ body.offcanvas {
   padding: 6px 12px;
 }
 
-.ale-custom-blog h2 a {
+.ale-custom-blog h2 a, .ale-custom-blog h3 a {
   color: black
 }
 

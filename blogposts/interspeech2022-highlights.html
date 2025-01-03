@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Highlights of Interspeech 2022</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was co-authored by Ale Torresquintero,
+										<a href="https://www.linkedin.com/in/tomas-gomez-ibarrondo/">Tomás Gómez
+											Ibarrondo</a>, and
+										<a href="https://www.linkedin.com/in/zackhodari/">Zack Hodari</a>.<br />
+										It was originally published on the
+										<a href="https://engineering.papercup.com/posts/interspeech2022-highlights/">
+											Papercup Engineering Blog
+										</a>
+										on 26 October 2022.
+									</div>
+									<hr>
+									<h1>Highlights of Interspeech 2022</h1>
+									<img src="../images/archway.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>This year Interspeech was hosted in Korea. It was our first time visiting
+											this beautiful country and we can’t wait to go back again! We had the most
+											amazing time in Incheon; the karaoke bars were especially great - I think we
+											went to one almost every night. A big thanks to all those involved in
+											organising the conference and to all those who attended and made it so much
+											fun.</p>
+										<p>We saw so much great research this year that we’ve decided to write two blog
+											posts. In this first one, we’ll cover our favourite papers and
+											self-supervised learning. In the coming years we think this topic will have
+											a big impact on speech technology. You can read our second blog post, which
+											covers all things TTS, <a
+												href="https://engineering.papercup.com/posts/interspeech2022-tts-overview/"
+												target="_blank" rel="nofollow noopener noreferrer">here</a>!</p>
+										<ul>
+											<li>
+												<p><a href="#hot-topic">Hot topic: Self-supervised learning
+														applications</a></p>
+												<ul>
+													<li><a href="#pre-training">Pre-training and fine-tuning</a></li>
+													<li><a href="#hidden-representations">Analysis of hidden
+															representations</a></li>
+													<li><a href="#pre-trained-for-tts">Use of pre-trained embeddings for
+															TTS</a></li>
+												</ul>
+											</li>
+											<li><a href="#honourable-mentions">Honourable mentions</a></li>
+										</ul>
+										<h2><a name="hot-topic" href="#hot-topic" style="box-shadow:none">Hot topic:
+												Self-supervised learning applications</a></h2>
+										<p>Self-supervised learning is the process of training a model to solve a
+											pseudo-task in the hope that the trained model with be useful for a
+											downstream task. At Interspeech, we saw papers that covered a few different
+											aspects of self-supervised learning. The first and most intuitive is the
+											development of pre-trained models and their application for downstream
+											tasks. Second, we saw several papers studying the learnt representations
+											directly, looking specifically at the phonetic information they capture.
+											Finally, others used pre-trained models as feature extractors, using learnt
+											representations to enable novel model architectures.</p>
+										<h3><a name="pre-training" href="#pre-training"
+												style="box-shadow:none">Pre-training and fine-tuning</a></h3>
+										<p>Self-supervised learning has made waves in other fields, leading to ground
+											breaking results particularly in <a
+												href="https://papers.nips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html"
+												target="_blank" rel="nofollow noopener noreferrer">natural language
+												generation</a> and <a
+												href="https://stability.ai/blog/stable-diffusion-announcement"
+												target="_blank" rel="nofollow noopener noreferrer">image synthesis</a>.
+											We find ourselves in the fine-tuning era, where you can improve performance
+											easily by utilising a pre-trained model. It was only a matter of time before
+											someone published a paper doing exactly that, but for TTS. <a
+												href="https://doi.org/10.21437/Interspeech.2022-225" target="_blank"
+												rel="nofollow noopener noreferrer">Kim et al.</a> from Seoul National
+											University pre-trained a VITS model on audio-only data and, after
+											fine-tuning on only 10 minutes of TTS data, achieve an excellent MOS. Their
+											pre-training and fine-tuning data are from the same single-speaker dataset
+											which could make the fine-tuning more likely to succeed on the smallest data
+											size. They also demonstrate good performance on zero-shot TTS, getting a MOS
+											close to a model that has access to the reference speech. In typical
+											fine-tuning approaches the output layer of the pre-trained model is
+											replaced, whereas here the input layers of the model was replaced with a
+											phone encoder so that the final TTS model can be driven by text input.</p>
+										<p>Speech-to-speech translation is a very challenging problem that has already
+											benefitted from self-supervised learning (see work from Meta’s <a
+												href="https://ai.facebook.com/blog/teaching-ai-to-translate-100s-of-spoken-and-written-languages-in-real-time/"
+												target="_blank" rel="nofollow noopener noreferrer">Universal Speech
+												Translator</a> project). At Interspeech, <a
+												href="https://doi.org/10.21437/Interspeech.2022-11032" target="_blank"
+												rel="nofollow noopener noreferrer">Popuri et al.</a> from Meta AI
+											extended <a href="https://arxiv.org/abs/2107.05604" target="_blank"
+												rel="nofollow noopener noreferrer">their previous work</a> using two
+											pre-trained models to initialise their model. The source language speech is
+											encoded using wav2vec 2.0, and the output embeddings are mapped to HuBERT
+											discrete units with a pre-trained text decoder — mBART’s decoder. The
+											pre-trained encoder and decoder are both fine-tuned on the speech-to-unit
+											task. A HiFi-GAN vocoder is trained to vocode the discrete units into a
+											waveform. Their model performs well on synthetic target speech, improving
+											the translation and pronunciation quality. We were excited that the paper
+											included results with real speech as the target, but unfortunately these
+											results were limited to a comparison of BLEU scores with their previous
+											work, it was unclear how well the models trained for real speech performed
+											compared to cascaded systems.</p>
+										<p>In this model, the two intermediate representations are very different before
+											fine-tuning begins: the pre-trained encoder output is in the source language
+											speech space, while the pre-trained decoder input is in the target language
+											speech space. This makes the question of “where does the translation happen”
+											for this architecture very intriguing. The translation clearly won’t happen
+											in the single convolutional layer that connects the encoder and decoder,
+											suggesting that the fine-tuning fundamentally changes what the pre-trained
+											models are doing.</p>
+										<p>While there are many models that learn text- or audio- based representations,
+											there are fewer that learn from both modalities together. <a
+												href="https://arxiv.org/abs/2202.01374" target="_blank"
+												rel="nofollow noopener noreferrer">Prior work</a> at Google achieved
+											this using different objectives for each modality. In <a
+												href="https://doi.org/10.21437/Interspeech.2022-10937" target="_blank"
+												rel="nofollow noopener noreferrer">MAESTRO</a>, Chen et al. propose two
+											new losses to learn a joint embedding space from both speech and text: the
+											first encourages the embeddings for each modality to be similar, while the
+											second is a language modelling objective in the joint embedding space and
+											works for paired and unpaired data. They achieve SotA performance on both
+											ASR and speech translation. Finally, they show that additional pre-training
+											tasks can further improve downstream performance for speech translation.</p>
+										<p>Despite the recent shift towards TTS systems that no longer use phonemes as
+											intermediate representations, we still saw the application of pre-trained
+											models to grapheme-to-phoneme (G2P) conversion. As we saw at Interspeech
+											last year, <a href="http://doi.org/10.21437/Interspeech.2021-546"
+												target="_blank" rel="nofollow noopener noreferrer">T5G2P</a> (a <a
+												href="https://arxiv.org/abs/1910.10683" target="_blank"
+												rel="nofollow noopener noreferrer">T5 model</a> fine-tuned on a
+											sentence-level G2P task) significantly outperforms encoder-decoder
+											word-level approaches. Building on this finding, <a
+												href="http://doi.org/10.21437/Interspeech.2022-538" target="_blank"
+												rel="nofollow noopener noreferrer">Zhu et al.</a> investigated how two
+											pre-trained variants of T5, the byte-based <a
+												href="https://arxiv.org/abs/2105.13626" target="_blank"
+												rel="nofollow noopener noreferrer">byT5</a> and multilingual <a
+												href="https://arxiv.org/abs/2105.13626" target="_blank"
+												rel="nofollow noopener noreferrer">mT5</a>, perform in a multilingual
+											G2P setting, for which they fine-tuned the models on a <a
+												href="https://github.com/lingjzhu/CharsiuG2P#g2p-datasets"
+												target="_blank" rel="nofollow noopener noreferrer">collection of
+												open-source pronunciation lexica</a> in no less than 99 languages that
+											they kindly made publicly available!</p>
+										<p>The authors show that the fine-tuned byT5 model outperforms both its mT5
+											equivalent and monolingual counterparts, which indicates that using a
+											byte-level encoding and simultaneously training on data from multiple
+											languages improves G2P performance. Interestingly, they also show that
+											additional fine-tuning to individual language data on the multilingual byT5
+											model further reduces phone error rate on some languages, suggesting that
+											using pre-trained multilingual models can be beneficial in low-resource
+											monolingual G2P.</p>
+										<h3><a name="hidden-representations" href="#hidden-representations"
+												style="box-shadow:none">Analysis of hidden representations</a></h3>
+										<p>While most papers presented very promising results on a range of speech
+											problems through the application of self-supervised learning models, a few
+											papers instead took a closer look at the information encoded in their
+											representations in order to better understand how they benefit downstream
+											tasks.</p>
+										<p>In line with the fine-tuning approaches discussed above, <a
+												href="http://doi.org/10.21437/Interspeech.2022-10865" target="_blank"
+												rel="nofollow noopener noreferrer">tom Dieck et al.</a> adapted a
+											pre-trained wav2vec 2.0 model to perform a phone recognition task and
+											visualised its hidden layer activations to shed light on the level of
+											phonetic detail they contain. Interestingly, 2D PCA on the activations for
+											vowels revealed a striking resemblance to the vowel chart, i.e. the
+											arrangement of vowels in a 2D space based on how high/back the tongue is,
+											indicating sensitivity to F1 and F2, the acoustic correlates of vowel height
+											and backness. A similar analysis on consonants showed that the activations
+											can encode articulatory relationships between phonological pairs (e.g.
+											between plosives and fricatives: /d/ is to /ð/ like /g/ is to /ɣ/), which
+											suggests that the model can also learn information about place and manner of
+											articulation.</p>
+										<p>Similarly, <a href="http://doi.org/10.21437/Interspeech.2022-10884"
+												target="_blank" rel="nofollow noopener noreferrer">Wells et al.</a>
+											demonstrated that discrete units derived from HuBERT’s representations
+											encode phonetically interpretable information. A fine-grained analysis of
+											unit-to-phoneme correspondences revealed that units can capture sub-phonetic
+											events, such as the dynamic manner of articulation of plosives (i.e. closure
+											followed by release). However, the degree of articulatory information
+											present in these units seems to vary depending on phoneme category — place
+											of articulation isn’t so distinctively captured in plosives, for example —
+											suggesting different categories have different priorities.</p>
+										<p>Lastly, <a href="http://doi.org/10.21437/Interspeech.2022-373"
+												target="_blank" rel="nofollow noopener noreferrer">de Seyssel et
+												al.</a>’s work on CPC representations presents evidence that
+											self-supervised speech representations can encode language and speaker (by
+											proxy of gender), as well as phonetic, information. In addition to
+											qualitative visualisations such as the above, they obtained quantitative
+											measures from logistic regression classifiers trained on the phone-level CPC
+											representations (one for each information category) and compared the results
+											for monolingual and bilingual models. While gender and phonetic information
+											is present in the output representations of both models, they show that only
+											bilingual models encode disentangled language information.</p>
+										<p>Even though there’s no question phonetic information is, in some form,
+											present in self-supervised speech representations, it would be interesting
+											to see if they also encode prosodic information, and if so, how it transfers
+											to different downstream speech tasks. Either way, these findings manifest
+											the potential for these representations to be used as input features to a
+											TTS system, which we discuss in the next section.</p>
+										<h3><a name="pre-trained-for-tts" href="#pre-trained-for-tts"
+												style="box-shadow:none">Use of pre-trained embeddings for TTS</a></h3>
+										<p>We have found it useful to differentiate between methods that fine-tune
+											self-supervised learning models and approaches that use these pre-trained
+											models as feature extractors.</p>
+										<p>The low-resource TTS paper from Seoul National University, mentioned <a
+												href="#pre-training">above</a>, not only presents a method for
+											pre-training and fine-tuning a TTS model, but also makes use of another
+											pre-trained model’s embeddings to enable pre-training on audio-only data. <a
+												href="http://doi.org/10.21437/Interspeech.2022-225" target="_blank"
+												rel="nofollow noopener noreferrer">Kim et al.</a> use a wav2vec 2.0
+											model to extract “pseudo phonemes”, i.e. discretised units learnt by wav2vec
+											2.0. These pseudo phonemes are passes as input to the acoustic model during
+											pre-training. This design is what allows pre-training to work with
+											audio-only data. During fine-tuning, they replace this feature extractor
+											with a typical phoneme encoder that takes phonemes extracted from text.</p>
+										<p><a href="http://doi.org/10.21437/Interspeech.2022-10138" target="_blank"
+												rel="nofollow noopener noreferrer">Fong et al.</a>’s Speech Audio
+											Corrector (SAC) presents another interesting use of self-supervised
+											representations. In a similar manner, they discretise HuBERT’s hidden
+											representations into word-aligned “speech codes” which they then use as a
+											substitute for certain words in the otherwise graphemic input to a
+											transformer-based acoustic model.</p>
+										<p>They show that, by supplying the speech codes for the desired reading of a
+											specific word at inference time, the model is able to successfully correct
+											one-off mispronunciations with maintained synthesis quality, even when said
+											reading is obtained from a non-target speaker with a mismatched accent. SAC
+											thus manages to achieve pronunciation control in a grapheme-based TTS
+											system, a common problem in other end-to-end approaches seeking to remove
+											phonemes from the equation by directly mapping graphemes to speech
+											acoustics. As the authors suggest, this method could be particularly useful
+											in low-resource settings, where pronunciation lexica may not be available.
+										</p>
+										<p>Finally, in <a href="http://doi.org/10.21437/Interspeech.2022-10797"
+												target="_blank" rel="nofollow noopener noreferrer">WavThruVec</a>
+											Siuzdak et al. presented a method to reduce the difficulty in training
+											end-to-end models. Instead of beginning from scratch, embeddings from a
+											pre-trained model (they use wav2vec 2.0) serve as an intermediate
+											representation, similar to how mel filter-bank features (aka mel
+											spectrograms) are the typical interface between acoustic modelling and
+											vocoding. While WavThruVec is trained in two stages — text to wav2vec
+											features, and wav2vec features to waveforms — we think this use of a
+											pre-trained intermediate embedding would work well in the joint training
+											paradigm too, like <a href="#jets">JETS</a>.</p>
+										<h2><a name="honourable-mentions" href="#honourable-mentions"
+												style="box-shadow:none">Honourable mentions</a></h2>
+										<p>There were so many papers that we couldn’t make space for in this post or in
+											our overview of TTS at Interspeech (stay tuned for that instalment). But we
+											couldn’t resist sharing a few of our favourites.</p>
+										<h3>An Automatic Soundtracking System for Text-to-Speech Audiobooks</h3>
+										<p>Much of the research in our field focuses on the core technology, such as
+											prosody prediction or vocoding. However, in many cases the most impactful
+											topic for the end-use case lies elsewhere. We thought Bytedance’s research
+											on automatically <a href="http://doi.org/10.21437/Interspeech.2022-10236"
+												target="_blank" rel="nofollow noopener noreferrer">adding background
+												music to audiobooks</a> was a really impactful contribution to the
+											end-listener experience for audiobooks. Much research has been conducted on
+											automatic synthesis of audiobook data, but Chen et al. are the first to
+											automatically add background music, something that would normally be done
+											manually in post-production.</p>
+										<p>Their method partitions a chapter into consecutive plot-chunks made up of at
+											least two paragraphs (defined by a set of annotation rules, e.g. a change of
+											time or location). Partitioning is defined as a sequence labelling task
+											where the inputs are BERT embeddings of whole paragraphs. For each
+											plot-chunk, they then perform classification of a plot’s sentiment tag using
+											the paragraph BERT embeddings for that plot-chunk. The sentiment tags
+											include 12 pre-defined categories, including happiness, romance, highlight,
+											and neutral event. Music is then selected heuristically from their catalogue
+											based on plot length and ratio of narration to dialogue.</p>
+										<p>While manual music selection will likely be the norm for human-produced
+											audiobooks for the foreseeable future, this method will certainly be very
+											impactful for synthetic audiobook production. It also could pave the way to
+											creating new tools to support human-produced audiobooks, just as image
+											synthesis models are doing for art.</p>
+										<h3>SpecGrad: Diffusion Probabilistic Model based Neural Vocoder with Adaptive
+											Noise Spectral Shaping</h3>
+										<p>Probabilistic modelling has a long history in TTS. The ability to enforce
+											distributional assumptions that encode expert knowledge about speech has
+											always been a benefit. Recently, flows and diffusion models have
+											demonstrated excellent performance for a variety of speech applications. It
+											is always nice to see the probabilistic modelling framework being taken
+											advantage of by encoding obvious assumptions.</p>
+										<p>In <a href="http://doi.org/10.21437/Interspeech.2022-301" target="_blank"
+												rel="nofollow noopener noreferrer">SpecGrad</a>, by Koizumi et al., the
+											prior from which the diffusion model samples is determined by the input
+											spectrogram. Unlike its predecessor, <a
+												href="https://openreview.net/forum?id=_BNiN4IjC5" target="_blank"
+												rel="nofollow noopener noreferrer">PriorGrad</a>, this model does not
+											make typical independence assumptions in the prior’s covariance matrix. To
+											make computing a full covariance matrix tractable, SpecGrad reframes the
+											problem as a filter in the time-frequency domain with three components: the
+											STFT, the STFT’s pseudo inverse, and a diagonal matrix of filter
+											coefficients. The model already performs very well, and we’re excited to see
+											additional extensions that incorporate more ideas from signal processing!
+										</p>
+										<h3><a name="jets" href="#jets" style="box-shadow:none">JETS: Jointly Training
+												FastSpeech2 and HiFi-GAN for End to End Text to Speech</a></h3>
+										<p>Instead of training two separate stages (acoustic model and vocoder), the <a
+												href="http://doi.org/10.21437/Interspeech.2022-10294" target="_blank"
+												rel="nofollow noopener noreferrer">Lim et al.</a> have created a setup
+											in which FastSpeech2 and HiFi-GAN can be jointly trained in a single E2E
+											setup. As part of their system, they add an alignment learning framework
+											that encodes the text and mel spectrogram together, rather than relying on
+											an external forced aligner such as MFA. It begs the question, has TTS
+											progressed far enough that we may no longer need to keep these stages
+											separate?</p>
+										<h3>Back to the Future: Extending the Blizzard Challenge 2013</h3>
+										<p>Repeatedly with our own research, we’ve found difficulty in interpreting MOS
+											due to (1) its relative nature, where results are not comparable between
+											different evaluations, and (2) its over-saturation, where models’ scores
+											aren’t statistically significantly different; sometimes human speech also
+											lies within a model’s confidence interval. Therefore, seeing these internal
+											findings validated empirically by <a
+												href="http://doi.org/10.21437/Interspeech.2022-10633" target="_blank"
+												rel="nofollow noopener noreferrer">Le Maguer et al.</a> was refreshing,
+											because it seems that many TTS papers, even at Interspeech this year,
+											continue to rely on MOS. In this work, the authors re-evaluated systems from
+											the 2013 Blizzard challenge against each other, and modern architectures:
+											Tacotron and FastPitch. They found that though the relative ranking of
+											systems based on MOS was maintained, the true values of these scores
+											changed, likely due to the introduction of more modern systems. As a result,
+											in addition to reiterating the importance of not comparing scores from
+											different evaluations to each other, they explicitly highlight that</p>
+										<p style="margin-left:40px;padding-left:10px;border-left:4px solid #f94f3f">
+											&quot;It is certainly not valid to simply pool MOS obtained from multiple
+											listening tests, to form a training set for a MOS prediction model.&quot;
+										</p>
+										<p>We are keen to see how further research in this area, such as with the
+											VoiceMOS challenge, can improve MOS interpretability, or lead to even better
+											subjective evaluation.</p>
+										<h3>Visualising Model Training via Vowel Space for Text-To-Speech Systems</h3>
+										<p>Explainability of how and what TTS models are learning during training can
+											get less attention than it deserves. In this paper, <a
+												href="http://doi.org/10.21437/Interspeech.2022-264" target="_blank"
+												rel="nofollow noopener noreferrer">Abeysinghe et al.</a> specifically
+											focus on the explainability of how a model can learn an accent, when it is
+											initially trained on one accent (American English) and then fine tuned on
+											another (New Zealand English). Throughout the fine-tuning stage, they</p>
+										<ol>
+											<li>generate samples using the latest iteration checkpoint</li>
+											<li>run forced alignment on these samples to segment the vowels</li>
+											<li>plot the average vowel space for each vowel</li>
+										</ol>
+										<p>In this way, they are able to visualise how the model gradually unlearns the
+											American English vowels as they transform into New Zealand English vowels.
+											With this system, they are able to observe the most rapid change in earlier
+											fine-tuning steps.</p>
+										<p>This work inspires us to think critically about other areas in which we could
+											better understand how a TTS model is learning. Could we, for example, use a
+											similar analysis to understand how multilingual TTS systems learn to
+											distinguish between languages?</p>
+										<h3>Investigating perception of spoken dialogue acceptability through surprisal
+										</h3>
+										<p>Finally, we wanted to discuss one of the best student papers, from CSTR in
+											Edinburgh. <a href="http://doi.org/10.21437/Interspeech.2022-10808"
+												target="_blank" rel="nofollow noopener noreferrer">Wallbridge et al.</a>
+											presented a very interesting investigation of surprisal in human
+											conversation. Surprisal is a useful concept that relates to how
+											un-predictable a linguistic segment is given the context, this has an impact
+											on listener comprehension, among other things. In the experiments on
+											Switchboard, human ability to judge surprisal was compared with judgements
+											from a large language model. Their experiment demonstrated that humans do
+											notice surprising dialogue responses. They explored a few approaches to
+											judge surprisal with language model outputs, finding some level of
+											correlation with human judgements. Finally, they explored which information
+											was most useful in make these judgements. We’d be curious to see how this
+											work could influence dialogue agents.</p>
+										<p>These were only some of the highlights that we saw at Interspeech this year.
+											If you’d like to read more, take a look at our thorough blog post on
+											TTS-specific contributions <a
+												href="https://engineering.papercup.com/posts/interspeech2022-tts-overview/"
+												target="_blank" rel="nofollow noopener noreferrer">here</a>. Thanks
+											again to the organisers for putting together such a great conference!</p>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
