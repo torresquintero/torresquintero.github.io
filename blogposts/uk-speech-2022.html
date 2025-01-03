@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - 🐻 Papercubs go to UK Speech 2022</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was co-authored by Ale Torresquintero and
+										<a href="https://www.linkedin.com/in/vivianjhu/">Vivian Hu</a>.<br />
+										It was originally published on the
+										<a href="https://engineering.papercup.com/posts/uk-speech-2022/">
+											Papercup Engineering Blog
+										</a>
+										on 14 October 2022.
+									</div>
+									<hr>
+									<h1>🐻 Papercubs go to UK Speech 2022</h1>
+									<img src="../images/team.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>For the first in-person <a href="https://ukspeech.inf.ed.ac.uk/"
+												target="_blank" rel="nofollow noopener noreferrer">UK Speech
+												Conference</a> in 3 years,
+											we were lucky enough to be able to attend with most of our machine learning
+											team as both
+											researchers and sponsors! The conference managed to pack a whole host of
+											activities into
+											just 2 days. So suffice it to say, there were more than a few highlights.
+											Some of the most memorable included:</p>
+										<ul>
+											<li>Excellent key notes from Prof Namoi Harte, Dr Jennifer Williams, and Dr
+												Joanne Cleland on
+												multimodality in speech, speech privacy, and developments in ultrasound
+												imaging for speech
+												therapy respectively.</li>
+											<li>Maximum engagement time with fellow researchers during the 3 different
+												poster sessions.</li>
+											<li>An excellent social that ticked all 3 big Ds — drinks, dinner, dancing!
+												(We found out that
+												<a href="https://uk.linkedin.com/in/zackhodari" target="_blank"
+													rel="nofollow noopener noreferrer">one of us</a> is <em>really</em>
+												into ceilidhs)
+											</li>
+											<li>Clear skies and sunshine over Edinburgh for a quick trip up Arthur’s
+												seat</li>
+										</ul>
+										<p>For us, the conference was both a great chance to meet and re-connect with
+											our fellow speech
+											enthusiasts as well as engage the community with the questions that we’ve
+											been grappling with
+											over the past year. We were lucky enough to have the opportunity for
+											<a href="https://uk.linkedin.com/in/tian-huey-teh-3136b2105" target="_blank"
+												rel="nofollow noopener noreferrer">Tian</a> to present a poster on our
+											work with
+											controllable TTS and for <a href="https://uk.linkedin.com/in/zackhodari"
+												target="_blank" rel="nofollow noopener noreferrer">Zack</a> to share
+											some insights
+											around dubbing evaluation in an oral session. Here’s what you missed!
+										</p>
+										<h3>Leveraging explicit acoustic features for controllable TTS</h3>
+										<p>At Papercup, we aim to make the world’s videos watchable in any language by
+											leveraging
+											human-in-the-loop assisted neural TTS to drive our AI-powered dubbing
+											systems.
+											As you can imagine, synthesising speech with prosody that is appropriate for
+											our content is
+											a major concern for us.</p>
+										<p>Last year at Interspeech, we published a paper describing
+											<a href="https://www.doi.org/10.21437/Interspeech.2021-1583" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a>, a model that generates
+											speech explicitly conditioned
+											on three primary acoustic correlates of prosody: F0, energy, and duration.
+											We found that modelling acoustic features explicitly offers interpretable,
+											temporally-precise, and disentangled control over prosody during synthesis.
+											The controllability
+											that Ctrl-P offers gives us a couple different ways of achieving an
+											appropriate target rendition
+											of an utterance, and that’s precisely the kind of research we wanted to
+											discuss with the rest
+											of the community.
+										</p>
+										<p>Tian presented the work we’ve been doing around exploring two different
+											possible modes of control
+											by humans-in-the-loop. One allows for coarse control using simple
+											hand-crafted rules that can be
+											applied via text markup. These rules enable some basic but salient prosodic
+											effects like adjusting
+											silence or pause durations, adding word emphasis, and applying question
+											intonation.
+											In a simple A/B test, we showed that these rules were able to improve
+											listener preference.</p>
+										<p>However, this level of granularity doesn’t quite give us control over many of
+											speech’s nuances
+											and subtleties. For that, we investigated an alternative approach for
+											fine-grained control:
+											using voice directly! Our intuition is that the voice is the most intuitive
+											modality to flexibly
+											specify a desired prosodic rendition at a granular level. In this mode, a
+											human-in-the-loop
+											performs the utterance with the intended prosody. We extract the
+											aforementioned acoustic features
+											from the speech and use those values to drive the model instead of predicted
+											ones.
+											While qualitative feedback suggests this results in increased expressivity,
+											enunciation clarity
+											and audio quality may be also degraded, so there’s definitely more to
+											investigate here!
+											For more detailed insights, here’s a peak at the poster.</p>
+										<p><span class="gatsby-resp-image-wrapper"
+												style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:1170px">
+												<a class="gatsby-resp-image-link"
+													href="../images/controllable-tts-poster.jpg"
+													style="display:block" target="_blank" rel="noopener">
+													<span class="gatsby-resp-image-background-image"
+														style="padding-bottom:70.64846416382252%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwT/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//aAAwDAQACEAMQAAAB3urB0Ek6/wD/xAAZEAADAQEBAAAAAAAAAAAAAAAAAQITAxL/2gAIAQEAAQUCXGTGS+Up6T50kq0f/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAECEf/aAAgBAwEBPwHaE6w//8QAFxEBAAMAAAAAAAAAAAAAAAAAAAERIv/aAAgBAgEBPwHKaf/EABYQAQEBAAAAAAAAAAAAAAAAABAxAP/aAAgBAQAGPwJmh//EABwQAAICAwEBAAAAAAAAAAAAAAERACFBUZExYf/aAAgBAQABPyFRk0o3J7KJrcCdmtT7uRkIHzIn/9oADAMBAAIAAwAAABCUL//EABgRAQEBAQEAAAAAAAAAAAAAAAERAJGh/9oACAEDAQE/EEWC90ivu//EABkRAQACAwAAAAAAAAAAAAAAAAEAESExof/aAAgBAgEBPxCls5BfBP/EAB0QAQEAAQQDAAAAAAAAAAAAAAERACExUWFBkdH/2gAIAQEAAT8QYUUXuwy52LpgaU0K4IBOPD7jEu3w394+p6HLn//Z&#x27;);background-size:cover;display:block"></span>
+													<img class="gatsby-resp-image-image" alt="poster-controllable-tts"
+														title="poster-controllable-tts"
+														src="../images/controllable-tts-poster.jpg"
+														srcSet="../images/controllable-tts-poster.jpg 293w, ../images/controllable-tts-poster.jpg 585w, ../images/controllable-tts-poster.jpg 1170w, ../images/controllable-tts-poster.jpg 1755w, ../images/controllable-tts-poster.jpg 2340w, ../images/controllable-tts-poster.jpg 2500w"
+														sizes="(max-width: 1170px) 100vw, 1170px"
+														style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0"
+														loading="lazy" />
+												</a>
+											</span></p>
+										<p>Luckily, it seems like we were in good company at UK Speech, with a number of
+											other researchers
+											doing similar interesting work in the controllability space. Matthew Aylett
+											and the team at
+											CereProc presented a voice-driven puppetry system, and Gustavo Beck and his
+											collaborators at
+											the KTH Royal Institute of Technology brought formant synthesis back with a
+											proof-of-concept
+											investigating the use of formants for neural TTS control. It’s great to see
+											how others have
+											also attempted to leverage and build upon the value of controllability in
+											neural models,
+											so we’ll definitely be watching this space!</p>
+										<h3>Evaluating watchability for video localisation</h3>
+										<p>Zack gave a talk on the difficulty of evaluating watchability for AI video
+											localisation. By watchability, we mean all aspects that contribute to the
+											end-viewer experience, including things like translation quality,
+											expressivity of the synthesised speech, and voice selection. To demonstrate
+											why this is difficult, take the following example from his presentation.</p>
+										<p>Listen to the following samples (before watching the video below!) and try to
+											determine which is more natural, more appropriate, or which you prefer the
+											most.</p>
+										<audio controls="" style="width:375px">
+											<source src="../audio/jason_mouthful.wav"
+												type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio>
+										<audio controls="" style="width:375px">
+											<source src="../audio/mouthful_trim.mp3"
+												type="audio/wav" />
+											Your browser does not support the audio element.
+										</audio><br /><br />
+										<p>Now watch the video below.</p>
+										<video controls="" width="80%">
+											<source src="../video/mouthful.mov"
+												type="video/mp4" />
+											Sorry, your browser doesn&#x27;t support embedded videos.
+										</video>
+										<p>Has your opinion changed on which sample is better?</p>
+										<p>When building any watchability evaluation, we have to take many variables
+											into account: how the context determines appropriateness of the synthesised
+											speech, the purpose of the content, how long evaluators are willing to watch
+											a sample, the list goes on.</p>
+										<p>In his talk, Zack detailed why this evaluation is important for the video
+											localisation we are doing at Papercup: both for us to understand the impact
+											of watchability on how viewers experience our dubbed videos, and to identify
+											areas for our system to improve.</p>
+										<p>Ultimately, this evaluation is largely unresolved, and it’s an exciting
+											problem for us to continue researching.</p>
+										<p>As with controllability, we were keen to see other work in the dubbing space.
+											In particular, Protima Nomo Sudro, Anton Ragni and Thomas Hain’s work on
+											using voice conversion to transform adult speech into child speech for
+											dubbing. What a cool concept!</p>
+										<hr />
+										<p>And that’s another conference under our belts! Big shout out to the
+											organisers Catherine Lai and Peter Bell for putting together such a great
+											event. Looking forward to seeing everyone again next year :)</p>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
