@@ -1,0 +1,473 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Tutorial on ADEPT evaluation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was originally published on the
+										<a href="https://engineering.papercup.com/posts/ADEPT-how-to/">
+											Papercup Engineering Blog
+										</a>
+										on 26 August 2021
+									</div>
+									<hr>
+									<h1>Tutorial on ADEPT evaluation: a step-by-step guide</h1>
+									<img src="../images/steps.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>This how-to guide will give step-by-step recommendations on how to set up an
+											ADEPT evaluation using the ADEPT corpus. If you’d like to know more about
+											the research behind ADEPT, you can find our paper on Arxiv <a
+												href="https://arxiv.org/abs/2106.08321" target="_blank"
+												rel="nofollow noopener noreferrer">here</a>, or our accompanying blog
+											post <a href="ADEPT.html" target="_blank"
+												rel="nofollow noopener noreferrer">here</a>.</p>
+										<p>ADEPT is meant to evaluate English TTS prosody transfer models (models that
+											transfer prosody from an English reference to an English target). We do not
+											yet know how useful the corpus is for evaluating cross-lingual prosody
+											transfer, nor prosody in general. But we hope for those to be our next steps
+											with ADEPT research.</p>
+										<h2>Step 1: Determine which aspects of prosody you intend to transfer</h2>
+										<p>[Skip to step 2 if you wish to set up all 12 ADEPT evaluation tasks.]</p>
+										<p>As discussed in the paper, we’ve identified six classes of speech that have
+											prosodic effect on F0, amplitude, duration, spectral tilt and/or segmental
+											reduction. Additionally, we highlight that previous research has suggested
+											that some of these classes have <strong>local</strong> effect, meaning the
+											acoustic cues are affected differently throughout the utterance, whilst
+											others have <strong>global</strong> effect; the effect on acoustic cues is
+											more consistent throughout an utterance. Though we did not test any of these
+											claims directly in our research, they can still be a helpful guide for
+											determining which classes of speech to test.</p>
+										<p>For example, if your model is embedding the F0 range of the reference sample
+											and transferring this onto the target, then your model will probably perform
+											better at transferring speech classes that have global effect on F0 (emotion
+											and interpersonal attitude). We’ve broken down the expected prosodic effects
+											based on previous research in the table below.</p>
+										<table>
+											<thead>
+												<tr>
+													<th></th>
+													<th style="text-align:center">Emotion</th>
+													<th style="text-align:center">Interpersonal<br />attitude</th>
+													<th style="text-align:center">Propositional<br />attitude</th>
+													<th style="text-align:center">Topical<br />emphasis</th>
+													<th style="text-align:center">Syntactic<br />phrasing</th>
+													<th style="text-align:center">Marked<br />tonicity</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Global F0</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+												</tr>
+												<tr>
+													<td>Global amplitude</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+												</tr>
+												<tr>
+													<td>Global duration</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+												</tr>
+												<tr>
+													<td>Global spectral tilt</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+												</tr>
+												<tr>
+													<td>Local F0</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+												</tr>
+												<tr>
+													<td>Local amplitude</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+												</tr>
+												<tr>
+													<td>Local duration</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center">✅</td>
+												</tr>
+												<tr>
+													<td>Local spectral tilt</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+												</tr>
+												<tr>
+													<td>Local segmental reduction</td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center"></td>
+													<td style="text-align:center">✅</td>
+												</tr>
+											</tbody>
+										</table>
+										<p>We do not claim that this list is exhaustive; classes may have additional
+											prosodic effects that are not outlined in the table. However, if you do not
+											wish to set up all 12 evaluation tasks (6 classes <span class="katex"><span
+													class="katex-mathml"><math
+														xmlns="http://www.w3.org/1998/Math/MathML">
+														<semantics>
+															<mrow>
+																<!-- <mo>×</mo> -->
+															</mrow>
+															<annotation encoding="application/x-tex">\times</annotation>
+														</semantics>
+													</math></span><span class="katex-html" aria-hidden="true"><span
+														class="base"><span class="strut"
+															style="height:0.66666em;vertical-align:-0.08333em"></span><span
+															class="mord">×</span></span></span></span> 2 speakers [male
+											and female]), the above table can guide you towards which tasks to select.
+										</p>
+										<h2>Step 2: Generate your samples</h2>
+										<p>To evaluate a single model, you’ll need to synthesise samples in all of the
+											subcategories or interpretations for each speaker and class you’re
+											evaluating. You should use the relevant <a
+												href="https://zenodo.org/record/5117102" target="_blank"
+												rel="nofollow noopener noreferrer">ADEPT sample</a> as the reference,
+											and synthesise the text of that reference. For example, if you’re evaluating
+											female syntactic phrasing, you should generate 10 samples, whose prosody is
+											transferred from the following, and whose text is the same as the
+											following:<br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_1/ad00_0400.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_1/ad00_0401.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_1/ad00_0402.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_1/ad00_0403.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_1/ad00_0404.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_2/ad00_0400.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_2/ad00_0401.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_2/ad00_0402.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_2/ad00_0403.wav</code><br />
+											<code
+												class="language-text">syntactic_phrasing/interpretation_2/ad00_0404.wav</code>
+										</p>
+										<p>These 10 samples correspond to 2 interpretations for each of the 5 syntactic
+											phrasing sentences.</p>
+										<p>The following table shows how many samples to generate for each speaker and
+											class. Thus, to perform a full ADEPT evaluation (all 12 tasks), you need to
+											generate 195 samples.</p>
+										<table>
+											<thead>
+												<tr>
+													<th></th>
+													<th style="text-align:center">Emotion</th>
+													<th style="text-align:center">Interpersonal<br />attitude</th>
+													<th style="text-align:center">Propositional<br />attitude</th>
+													<th style="text-align:center">Topical<br />emphasis</th>
+													<th style="text-align:center">Syntactic<br />phrasing</th>
+													<th style="text-align:center">Marked<br />tonicity</th>
+													<th style="text-align:center">Total</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Female</td>
+													<td style="text-align:center">25</td>
+													<td style="text-align:center">20</td>
+													<td style="text-align:center">15</td>
+													<td style="text-align:center">15</td>
+													<td style="text-align:center">10</td>
+													<td style="text-align:center">10</td>
+													<td style="text-align:center"><strong>95</strong></td>
+												</tr>
+												<tr>
+													<td>Male</td>
+													<td style="text-align:center">25</td>
+													<td style="text-align:center">20</td>
+													<td style="text-align:center">20</td>
+													<td style="text-align:center">15</td>
+													<td style="text-align:center">10</td>
+													<td style="text-align:center">10</td>
+													<td style="text-align:center"><strong>100</strong></td>
+												</tr>
+												<tr>
+													<td><strong>Total</strong></td>
+													<td style="text-align:center"><strong>50</strong></td>
+													<td style="text-align:center"><strong>40</strong></td>
+													<td style="text-align:center"><strong>35</strong></td>
+													<td style="text-align:center"><strong>30</strong></td>
+													<td style="text-align:center"><strong>20</strong></td>
+													<td style="text-align:center"><strong>20</strong></td>
+													<td style="text-align:center"><strong>195</strong></td>
+												</tr>
+											</tbody>
+										</table>
+										<h2>Step 3: Make your evaluation tasks</h2>
+										<p>Some classes use a multiple-stimulus design, in which listeners hear multiple
+											audio samples per question, whilst other classes have only have a single
+											stimulus per question. For the three classes with a single stimulus design
+											(topical emphasis, syntactic phrasing, and marked tonicity), possible answer
+											choices for each question are available on <a
+												href="https://zenodo.org/record/5117102" target="_blank"
+												rel="nofollow noopener noreferrer">Zenodo</a> within
+											<code>adept_prompts.json</code>.</p>
+										<p>For all tasks, we advise having at least 30 participants. All samples you use
+											in your own evaluation should be the samples you generated with your prosody
+											transfer model, not our natural samples.</p>
+										<h3>Emotion</h3>
+										<p>Both the female and male emotion tasks use a multi-stimulus design with 20
+											questions, and 5 choices per question. The choices are the same sentence
+											said in each of the subcategories + neutral. Each of the 5 sentences is
+											presented 4 times (once per subcategory, and hence 20 total questions), but
+											each time the sentence is presented, the question and correct answer are
+											different. The question asked is <em>In which of the following samples does
+												the speaker sound most X?</em> where <em>X</em> is one of: fearful, sad,
+											joyful, or angry; and the correct answer is the fearful, sad, joyful, or
+											angry sample for that sentence respectively.</p>
+										<p>As an example, see our male test below.</p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksew2e3c7pzd0846h86zty4g"
+											title="Male emotion"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksew2e3c7pzd0846h86zty4g"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h3>Interpersonal attitude</h3>
+										<p>Similarly, both the female and male interpersonal attitude tasks use a
+											multi-stimulus design with 15 questions, and 4 choices per question (one per
+											subcategory + neutral). Listeners are asked <em>Which of the following
+												samples sounds most like X?</em>, where x is one of: an authoritative
+											statement, a contemptuous question, or a polite statement. For example, see
+											our female test below.</p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksf01zjd946j08462c7bbw0t"
+											title="Female interpersonal attitude"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksf01zjd946j08462c7bbw0t"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h3>Propositional attitude</h3>
+										<p>Propositional attitude also has a multi-stimulus design. The male task has 15
+											questions with 4 choices each, whilst the female task has only 10 questions
+											with 3 choices each because it has one fewer subcategory. Listeners are
+											asked <em>Which sample fits best into the context: X</em>, where <em>X</em>
+											is one of:<br />
+											“(Incredulous) Really? <strong><strong>___</strong></strong>?”<br />
+											“(Surprised) Wow! <strong><strong>___</strong></strong>!”<br />
+											“(Sarcastically) Well <strong><strong>___</strong></strong>.” [male only]
+										</p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksf0rwt49pg30846xfbhmkmh"
+											title="Male propositional attitude"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksf0rwt49pg30846xfbhmkmh"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h3>Topical emphasis</h3>
+										<p>Both the male and female topical emphasis tasks are a single-stimulus design,
+											each with 15 questions and 3 choices per question. Listeners are asked
+											<em>Which question is best answered by the sample?</em> And the choices
+											imply emphasis either at the beginning, middle or end of the sentence.</p>
+										<p>For example, there are three questions asking about sentence
+											<code>ad00_0100</code> (one with the beginning sample, one with the middle
+											sample, and one with the end sample). And for all three of these questions,
+											the three choices are:<br />
+											a. WHO eats avocado with toast?<br />
+											b. Vegans eat WHAT with toast?<br />
+											c. Vegans eat avocado with WHAT?</p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksf1kmob9rqg0846rqktli84"
+											title="Female topical emphasis"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksf1kmob9rqg0846rqktli84"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h3>Syntactic phrasing</h3>
+										<p>Similarly both the male and female syntactic phrasing tasks are a
+											single-stimulus design, each with 10 questions and 2 choices per question:
+											paraphrases that imply the two possible interpretations of the sentence.
+											Listeners are asked <em>Which is a better paraphrase of the sample?</em></p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksf2cvwh9sxd0846cvyqgs5u"
+											title="Female topical emphasis"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksf2cvwh9sxd0846cvyqgs5u"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h3>Marked tonicity</h3>
+										<p>Lastly both the male and female marked tonicity tasks are also a
+											single-stimulus design, with 10 questions and 2 interpretations of the
+											sentence per question.</p>
+										<iframe style="width:100%;height:520px"
+											src="https://clipboard.ratemyaudio.com/experiment/cksf47y609v7e0846y3w9int6"
+											title="Female topical emphasis"></iframe>
+										<p><small>You must have 3rd party cookies enabled for the embedded test to work.
+												If you do not wish to enable 3rd party cookies, you can instead visit
+												the link directly <a
+													href="https://clipboard.ratemyaudio.com/experiment/cksf47y609v7e0846y3w9int6"
+													target="_blank" rel="nofollow noopener noreferrer">here</a>.</small>
+										</p>
+										<h2>Step 4: Evaluating your results</h2>
+										<p>With this set-up, each question has only one right answer, and the neutral
+											sample is never correct. To evaluate a given subcategory, consider the
+											following example: if you have 30 participants perform the female topical
+											emphasis task, you’ll have a total of 30 <span class="katex"><span
+													class="katex-mathml"><math
+														xmlns="http://www.w3.org/1998/Math/MathML">
+														<semantics>
+															<mrow>
+																<!-- <mo>×</mo> -->
+															</mrow>
+															<annotation encoding="application/x-tex">\times</annotation>
+														</semantics>
+													</math></span><span class="katex-html" aria-hidden="true"><span
+														class="base"><span class="strut"
+															style="height:0.66666em;vertical-align:-0.08333em"></span><span
+															class="mord">×</span></span></span></span> 15 questions =
+											450 responses. Of those responses, 1/3 of them (150 responses) will have had
+											“beginning” as the right answer. And of those 150 responses, if 120 were
+											correctly answered by your participants, then for female beginning topical
+											emphasis you have a recognition accuracy of <strong>80%</strong>.</p>
+										<p>For classes without subcategories, syntactic phrasing and marked tonicity,
+											you can only evaluate the recognition accuracy of the class as a whole.</p>
+										<h2>Step 5: Share your results!</h2>
+										<p>Hooray you did it! I’d love to know if our proposed system is getting used.
+											So please do share your results with the wider research community.</p>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
