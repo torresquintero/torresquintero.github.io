@@ -418,7 +418,7 @@ body.offcanvas {
   margin: 0 100px;
   padding: 20px;
   position: relative;
-  top: -350px;
+  top: -250px;
   background-color: white;
 }
 
@@ -438,6 +438,10 @@ body.offcanvas {
 .ale-custom-blog th, td {
   border: #e9ebec 1px solid;
   padding: 6px 12px;
+}
+
+.ale-custom-blog h2 a {
+  color: black
 }
 
 h1 {

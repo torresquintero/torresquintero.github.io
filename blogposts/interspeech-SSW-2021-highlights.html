@@ -1,0 +1,563 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ale Torresquintero - Highlights of SSW and INTERSPEECH 2021</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+			<section class="colorlib-blog" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12">
+									<div class="blog-callout">
+										This post was co-authored by Ale Torresquintero,
+										<a href="https://www.linkedin.com/in/vivianjhu/">Vivian Hu</a>, and
+										<a href="https://www.linkedin.com/in/tian-huey-teh-3136b2105/">Tian Huey Teh.</a><br/>
+										It was originally published on the
+										<a href="https://engineering.papercup.com/posts/interspeech-SSW-2021-highlights/">
+											Papercup Engineering Blog
+										</a>
+										on 15 October 2021.
+									</div>
+									<hr>
+									<h1>Highlights of SSW and INTERSPEECH 2021</h1>
+									<img src="../images/interspeech2021-photobooth.jpg" class="blog-cover-photo">
+									<div class="ale-custom-blog">
+										<p>We were so blessed to be able to attend INTERSPEECH in person this year!
+											(Seriously - Czechia changed their covid laws literally the week before the
+											conference began, making it possible for us to go last minute.)
+											Unfortunately we were not able to make it to Budapest to attend Speech
+											Synthesis Workshop (SSW) in person, but the hybrid setup of both conferences
+											really made for a wonderfully accessible experience for both in-person and
+											remote attendees. Similar to last year, all papers were accompanied by a 3
+											minute video, which allowed attendees to get an aural overview of each work
+											in addition to abstracts. Even if conferences go fully in-person in the
+											future, we hope this video accompaniment will stick around!</p>
+										<p>As you may recall from our highlights post <a
+												href="https://engineering.papercup.com/posts/interspeech2020-highlights/"
+												target="_blank" rel="nofollow noopener noreferrer">last year</a>, we are
+											particularly interested in speech synthesis topics, including multilingual
+											TTS; generation, transfer, and control of expressive speech (including
+											prosody and emotion); vocoder research; and more. Ultimately, within our
+											realm of video translation, we hope to both generate the full range of
+											audible human expression within our systems, and expand our language
+											coverage.</p>
+										<p>Also don’t miss our own papers at INTERSPEECH this year, <a
+												href="https://doi.org/10.21437/Interspeech.2021-1583" target="_blank"
+												rel="nofollow noopener noreferrer">Mohan et al. 2021</a> and <a
+												href="https://doi.org/10.21437/Interspeech.2021-1610" target="_blank"
+												rel="nofollow noopener noreferrer">Torresquintero et al. 2021</a>, for
+											which we wrote two blog posts <a
+												href="https://engineering.papercup.com/posts/Ctrl-P/" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a> and <a
+												href="ADEPT.html" target="_blank"
+												rel="nofollow noopener noreferrer">ADEPT</a> respectively.</p>
+										<p style="margin-bottom:5px">Without further ado, here are some of the
+											highlights we noticed this year. You can skip to a specific section here:
+										</p>
+										<ul>
+											<li><a href="#data">Data</a></li>
+											<li><a href="#ling">Linguistic Frontend</a></li>
+											<li><a href="#eval">Evaluation</a></li>
+											<li><a href="#tts">TTS</a></li>
+											<li><a href="#voco">Vocoders</a></li>
+											<li><a href="#e2e">End-to-end TTS</a></li>
+											<li><a href="#hon">Honourable mentions</a></li>
+										</ul>
+										<h2><a name="data" style="box-shadow:none">Data</a></h2>
+										<p>There’s always cause to be excited about new training data! For English, we
+											noticed the Hi-Fi dataset, and RyanSpeech. The <a
+												href="https://doi.org/10.21437/Interspeech.2021-1599" target="_blank"
+												rel="nofollow noopener noreferrer">Hi-Fi</a> corpus includes at least 15
+											hours of data for each of its 10 speakers, which is a huge improvement over
+											previous mainstream multispeaker corpora (LibriTTS averages ~4 hours per
+											speaker, and VCTK averages less than 30 minutes per speaker). Excitingly,
+											it’s available for commercial use. <a
+												href="https://doi.org/10.21437/Interspeech.2021-341" target="_blank"
+												rel="nofollow noopener noreferrer">RyanSpeech</a> is a single speaker
+											male corpus that aims to increase the availability of male speech data.
+											Considering that LJSpeech and the 2013 Blizzard corpus, which are both
+											female speakers, are two of the most-used single speaker English corpora,
+											this is a great new resource to the community.</p>
+										<p>For Mandarin, EMOVIE and AISHELL-3 caught our attention. The <a
+												href="https://doi.org/10.21437/Interspeech.2021-1148" target="_blank"
+												rel="nofollow noopener noreferrer">EMOVIE</a> data comes from movies,
+											and thus is the first public Mandarin TTS corpus designed specifically for
+											emotional synthesis, though it’s only available for research. And <a
+												href="https://doi.org/10.21437/Interspeech.2021-755" target="_blank"
+												rel="nofollow noopener noreferrer">AISHELL-3</a> is a large
+											multi-speaker corpus (85 hours of 218 speakers) that aims to allow the
+											community to expand beyond English in mainstream TTS research. Given that
+											the corpus is publicly available, it would be great to see more non-English
+											research!</p>
+										<p>And last but not least, we were excited to see <a
+												href="https://doi.org/10.21437/Interspeech.2021-2124" target="_blank"
+												rel="nofollow noopener noreferrer">KazakhTTS</a>. Though we at Papercup
+											probably won’t have a chance to work with Kazakh in the near future, it’s
+											wonderful to see more open-source data for low-resource languages.</p>
+										<h2><a name="ling" style="box-shadow:none">Linguistic Frontend</a></h2>
+										<p>On the linguistic frontend side, <strong>polyphone disambiguation</strong>
+											was a hot topic this year. Theoretically, this is the same problem as
+											homograph disambiguation, but the literature tends to use polyphone
+											disambiguation specifically in the context of Chinese characters, and the
+											approaches tend to be a bit different. Last year we were particularly
+											intrigued by <a href="https://doi.org/10.21437/Interspeech.2020-1094"
+												target="_blank" rel="nofollow noopener noreferrer">g2pM</a>, a publicly
+											released python library for Mandarin that converts Chinese characters into
+											pinyin, with a focus on polyphones. If you’re interested in Mandarin TTS and
+											haven’t looked at this library yet, seriously <a
+												href="https://pypi.org/project/g2pM/" target="_blank"
+												rel="nofollow noopener noreferrer">check it out</a>. This year, <a
+												href="https://doi.org/10.21437/Interspeech.2021-1087" target="_blank"
+												rel="nofollow noopener noreferrer">Zhang</a>, <a
+												href="https://doi.org/10.21437/Interspeech.2021-502" target="_blank"
+												rel="nofollow noopener noreferrer">Shi et al.</a>, <a
+												href="https://doi.org/10.21437/Interspeech.2021-1232" target="_blank"
+												rel="nofollow noopener noreferrer">Li et al.</a>, and <a
+												href="https://doi.org/10.21437/Interspeech.2021-885" target="_blank"
+												rel="nofollow noopener noreferrer">Choi et al.</a> all contributed
+											further to polyphone disambiguation research. Though the first three show
+											accuracy improvements against g2pM, as far as we can tell none of the papers
+											this year released an easy-to-use python package. So for now we’re still
+											keen on g2pM as a ready-to-use polyphone disambiguation system.</p>
+										<p> We also saw some work on <strong>prosodic boundary prediction</strong>. <a
+												href="https://doi.org/10.21437/Interspeech.2021-252" target="_blank"
+												rel="nofollow noopener noreferrer">Futamata et al.</a> show that
+											implicit features on tokens from BERT, and explicit features (like POS tags
+											and dependency parses) from a BiLSTM improves prediction, which is
+											particularly important for Japanese as a pitch-accent language. <a
+												href="https://doi.org/10.21437/Interspeech.2021-125" target="_blank"
+												rel="nofollow noopener noreferrer">Trang et al.</a> similarly use
+											unnamed constituency trees (without phrase labels like NP or VP) and POS
+											tags for prosodic boundary prediction in Vietnamese. Though we generally
+											prefer dependency parses to constituency parses because they are more
+											generalisable to languages with free word order, it’s still cool to see more
+											applications of constituency trees for non-European languages. Lastly, <a
+												href="https://doi.org/10.21437/Interspeech.2021-883" target="_blank"
+												rel="nofollow noopener noreferrer">Zou et al.</a> explore using ToBI
+											labels to annotate prosody explicitly. Though their <a
+												href="https://sysuzyx.github.io/TTSwithTOBI/" target="_blank"
+												rel="nofollow noopener noreferrer">samples</a> sound pretty expressive
+											and correspond to what you would expect from a particular ToBI label, they
+											trained their ToBI predictor on data hand-labeled by a linguist. We’re keen
+											to see if other automated ways of obtaining ToBI or other labels can help
+											with research in this area.</p>
+										<h2><a name="eval" style="box-shadow:none">Evaluation</a></h2>
+										<p>As there has been more and more research on expressive TTS, so too has there
+											been more research into evaluating it. <a
+												href="https://doi.org/10.21437/Interspeech.2021-1123" target="_blank"
+												rel="nofollow noopener noreferrer">Baird et al.</a> introduce a
+											prototypical network to evaluate similarity, diversity, and plausibility of
+											generated emotional samples; <a
+												href="https://doi.org/10.21437/Interspeech.2021-1229" target="_blank"
+												rel="nofollow noopener noreferrer">Rallabandi et al.</a> share objective
+											metrics for perception of warmth, competence, and extraversion; and <a
+												href="https://doi.org/10.21437/SSW.2021-5" target="_blank"
+												rel="nofollow noopener noreferrer">Gutierrez et al.</a> demonstrate the
+											benefits of “expectation-driven” prosodic evaluation based on
+											question-answer pairs. Side note: we also used question-answer pairs to
+											evaluate topical emphasis in <a
+												href="https://doi.org/10.21437/Interspeech.2021-1610" target="_blank"
+												rel="nofollow noopener noreferrer">ADEPT</a>!</p>
+										<p>We also want to give a shoutout to <a
+												href="https://doi.org/10.21437/SSW.2021-26" target="_blank"
+												rel="nofollow noopener noreferrer">O’Mahony et al.</a>, who investigate
+											what factors lead to different MOS scores. In particular, they find that
+											whether or not there is provided context, ratings for naturalness are mostly
+											the same. But when rating appropriateness, synthesised speech gets a higher
+											MOS rating when given in context, than when given in isolation.</p>
+										<p>Lastly, there were several papers that investigate objective/automated
+											metrics, including <a href="https://doi.org/10.21437/Interspeech.2021-2013"
+												target="_blank" rel="nofollow noopener noreferrer">Tseng et al.</a>, <a
+												href="https://doi.org/10.21437/Interspeech.2021-2258" target="_blank"
+												rel="nofollow noopener noreferrer">Kongthaworn et al.</a>, <a
+												href="https://doi.org/10.21437/Interspeech.2021-2203" target="_blank"
+												rel="nofollow noopener noreferrer">Taylor et al.</a>, and <a
+												href="https://doi.org/10.21437/Interspeech.2021-286" target="_blank"
+												rel="nofollow noopener noreferrer">Valentini-Botinhao et al.</a>.</p>
+										<h2><a name="tts" style="box-shadow:none">TTS</a></h2>
+										<p><a href="https://arxiv.org/pdf/1712.05884.pdf" target="_blank"
+												rel="nofollow noopener noreferrer">Tacotron 2</a> has reigned for a few
+											years now as the default workhorse (phone-to-mel-spectrogram) acoustic model
+											for TTS research. This is gradually shifting towards non-autoregressive
+											(NAR) Transformer-based models, in particular, we noticed a significant
+											uptake of <a href="https://arxiv.org/pdf/2006.04558.pdf" target="_blank"
+												rel="nofollow noopener noreferrer">FastSpeech 2</a> as the base model
+											for TTS research this year.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2021-1461" target="_blank"
+												rel="nofollow noopener noreferrer">Parallel Tacotron 2</a> (<a
+												href="https://google.github.io/tacotron/publications/parallel_tacotron_2/index.html"
+												target="_blank" rel="nofollow noopener noreferrer">samples</a>) by Elias
+											et al. attempts to improve NAR TTS by proposing a fully differentiable phone
+											duration model that learns the token-frame alignments without needing
+											supervised duration signals or an attention mechanism. They achieve this by
+											translating predicted phone durations into <em>Token Boundary Grids</em>
+											that represent the distance from start and end of each token interval, thus
+											transforming a hard duration prediction into a differentiable one. To deal
+											with overall duration mismatch, they use soft dynamic time warping to
+											compute the loss.</p>
+										<h3>Greater controllability and expressiveness</h3>
+										<p>Similar to last year, a large number of TTS papers continue to focus on
+											expressivity and prosody modelling, but controllability and interpretability
+											have become a central consideration. Along with the explicit duration
+											modelling in NAR models, this has revived the use of explicit acoustic
+											features - most commonly F0 and energy (as well as duration if not a NAR
+											model). During training, these acoustic features are extracted from the
+											reference mel-spectrogram at the frame level, or at the phone level using an
+											external aligner, most commonly the Montreal Forced Aligner.</p>
+										<p>During inference, these acoustic feature values are either obtained from some
+											reference audio (e.g. <a
+												href="https://doi.org/10.21437/Interspeech.2021-838" target="_blank"
+												rel="nofollow noopener noreferrer">Lee et al.</a>) or predicted from
+											text, given other conditioning information such as speaker or style (e.g. <a
+												href="https://doi.org/10.21437/Interspeech.2021-979" target="_blank"
+												rel="nofollow noopener noreferrer">Pan et al.</a>). Optional control is
+											available either directly by modifying the acoustic features (e.g. our paper
+											<a href="https://doi.org/10.21437/Interspeech.2021-1583" target="_blank"
+												rel="nofollow noopener noreferrer">Ctrl-P</a>) or indirectly by
+											manipulating higher-level input features to the prosody prediction network,
+											including style tags (<a
+												href="https://doi.org/10.21437/Interspeech.2021-465" target="_blank"
+												rel="nofollow noopener noreferrer">Kim et al.</a>), arousal-valence
+											scalars (<a href="https://doi.org/10.21437/Interspeech.2021-307"
+												target="_blank" rel="nofollow noopener noreferrer">Sivaprasad et
+												al.</a>), and ToBI labels (<a
+												href="https://doi.org/10.21437/Interspeech.2021-883" target="_blank"
+												rel="nofollow noopener noreferrer">Zou et al.</a>). With these indirect
+											control levers, the prosody prediction network often required manual
+											annotations of the higher-level input features during training. This is an
+											area of opportunity - finding the right higher-level abstraction of prosody
+											that is simultaneously interpretable, intuitive, rich in expression, and
+											possible to annotate automatically, could lead to a step-change improvement
+											in controllable expressive TTS.</p>
+										<p>To this end, we really liked the idea in <a
+												href="https://doi.org/10.21437/Interspeech.2021-465" target="_blank"
+												rel="nofollow noopener noreferrer">Kim et al.</a> (<a
+												href="https://gannnn123.github.io/styletaggingtts-demo" target="_blank"
+												rel="nofollow noopener noreferrer">samples</a>) of representing style
+											using natural language style tags that are embedded with Sentence-BERT
+											(SBERT). The open vocabulary (whatever was seen in SBERT’s training) offers
+											a rich yet intuitive way to i) elicit nuanced emotions or attitudes during
+											data collection ii) represent these to the model by harnessing large
+											pretrained language models, and iii) specify the desired affect during
+											inference. It’s an enticing notion - that the learnt representations of the
+											range of emotions and attitudes in natural language might align with the
+											spectrum of acoustic characteristics in the corresponding speech.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2021-307" target="_blank"
+												rel="nofollow noopener noreferrer">Sivaprasad et al.</a> also
+											demonstrated a promising approach by training their prosody control block on
+											non TTS-grade data that had valence-arousal labels, independently from the
+											encoder-decoder TTS module which was trained on TTS-grade data. Decoupling
+											the training of the prosody prediction network from the core
+											(encoder-decoder) TTS synthesiser opens up myriad possibilities as TTS-grade
+											data is expensive and usually limited in variation.</p>
+										<p>Beyond explicit acoustic features, there were a host of papers that continued
+											to pursue learnt approaches to model prosodic variation. Many of these
+											papers extended Tacotron with <a href="https://arxiv.org/abs/1803.09047"
+												target="_blank" rel="nofollow noopener noreferrer">Reference Encoder</a>
+											or <a href="https://arxiv.org/abs/1803.09017" target="_blank"
+												rel="nofollow noopener noreferrer">Global Style Tokens (GST)</a> to
+											incorporate a temporal latent, and focussed on disentanglement for the
+											purposes of style transfer and latent space interpretability. <a
+												href="https://doi.org/10.21437/Interspeech.2021-947" target="_blank"
+												rel="nofollow noopener noreferrer">Li et al.</a> proposed a multi-scale
+											reference encoder that extracts both global-scale (utterance-level) and
+											local-scale (quasi-phoneme-level through downsampling) features. The latter
+											is aligned to the phone sequence using a reference attention. <a
+												href="https://doi.org/10.21437/Interspeech.2021-1129" target="_blank"
+												rel="nofollow noopener noreferrer">Tan et al.</a> disentangles content
+											information from the learnt style embedding space by adding a separate
+											content encoder. Both content and style encoders received additional
+											collaborative and adversarial training supervision, respectively, from
+											phones obtained through forced alignment. <a
+												href="https://doi.org/10.21437/Interspeech.2021-1936" target="_blank"
+												rel="nofollow noopener noreferrer">Tjandra et al.</a> goes a step
+											further to learn disentangled content and style latent spaces without any
+											supervision. Instead of collaborative and adversarial training, they use
+											mutual information minimisation and employ a VQ-VAE to model the temporal
+											latent as inductive bias for the content encoder.</p>
+										<p>Within expressivity, there were also a number of papers that focussed on
+											conversational and spontaneous speech. <a
+												href="https://doi.org/10.21437/Interspeech.2021-412" target="_blank"
+												rel="nofollow noopener noreferrer">Cong et al.</a> (<a
+												href="https://syang1993.github.io/spon_tts/" target="_blank"
+												rel="nofollow noopener noreferrer">samples</a>) model spontaneous
+											behaviour in speech - prolongation and filled-pauses (manually annotated) -
+											as attributes of phones. They also model sentence entrainment by providing
+											the model with a BERT encoding of the current sentence and an acoustic
+											encoding of the previous sentence. Going beyond the magic number 2 for TTS
+											models, <a href="https://doi.org/10.21437/Interspeech.2021-584"
+												target="_blank" rel="nofollow noopener noreferrer">Yan et al.</a>
+											released AdaSpeech 3 (<a href="https://speechresearch.github.io/adaspeech3/"
+												target="_blank" rel="nofollow noopener noreferrer">samples</a>) to
+											address model adaptation for spontaneous-style speech with limited data.
+											They model filled-pause (ASR transcribed) with a predictor that inserts
+											these into the text sequence, train a mixture-of-experts duration model to
+											account for varying rhythm, and propose a parameter-efficient model
+											adaptation routine.</p>
+										<p>There were three other papers related to expressivity and controllability
+											that caught our attention. <a
+												href="https://doi.org/10.21437/Interspeech.2021-1757" target="_blank"
+												rel="nofollow noopener noreferrer">Jia et al.</a> (<a
+												href="https://google.github.io/tacotron/publications/png_bert/"
+												target="_blank" rel="nofollow noopener noreferrer">samples</a>) proposed
+											a new TTS text encoder called PnG BERT. This is an augmented BERT model that
+											takes both phoneme and grapheme representations of text as input. The paper
+											showed that pre-training the model on a large text corpus in a
+											self-supervised manner, followed by fine-tuning on the TTS task leads to
+											more natural prosody and accurate pronunciation. We would be interested to
+											see how this approach compares against a TTS-model conditioned on BERT
+											embeddings.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2021-471" target="_blank"
+												rel="nofollow noopener noreferrer">Bae et al.</a> (<a
+												href="https://nc-ai.github.io/speech/publications/hierarchical-transformers-tts/"
+												target="_blank" rel="nofollow noopener noreferrer">samples</a>) proposed
+											to improve Transformer-based NAR TTS models by incorporating more
+											hierarchical structure, constraining the attention range of the encoder and
+											decoder to induce each layer to focus on the appropriate contextual
+											information. The text encoder is first constrained to have a narrow
+											attention window, then gradually widened as the layers progress (local to
+											global), while the audio decoder has the reverse wide to narrow structure
+											(global to local). Hierarchical pitch embeddings are also provided
+											explicitly at both sentence and word levels.</p>
+										<p><a href="https://doi.org/10.21437/Interspeech.2021-1538" target="_blank"
+												rel="nofollow noopener noreferrer">Rijn et al.</a> (<a
+												href="https://polvanrijn.github.io/gst-gsp/" target="_blank"
+												rel="nofollow noopener noreferrer">samples</a>) applied the concept of
+											Gibbs Sampling to design an annotation process that discovers prototypes of
+											emotional prosody from the learnt latent space of a trained GST model.</p>
+										<h3>Cross-lingual and speaker-adaptive synthesis</h3>
+										<p>We were happy to see a number of papers (<a
+												href="https://doi.org/10.21437/SSW.2021-28" target="_blank"
+												rel="nofollow noopener noreferrer">Wells and Richmond</a>, <a
+												href="https://doi.org/10.21437/SSW.2021-30" target="_blank"
+												rel="nofollow noopener noreferrer">Fong et al.</a>, <a
+												href="https://doi.org/10.21437/Interspeech.2021-327" target="_blank"
+												rel="nofollow noopener noreferrer">Maniati et al.</a>) continue along
+											the lines of <a href="https://doi.org/10.21437/Interspeech.2020-1821"
+												target="_blank" rel="nofollow noopener noreferrer">our paper</a> (<a
+												href="https://engineering.papercup.com/tags/phonological-features/"
+												target="_blank" rel="nofollow noopener noreferrer">blogpost</a>) from
+											Interspeech last year, using phonological features as a basis for
+											cross-lingual synthesis research. <a
+												href="https://doi.org/10.21437/Interspeech.2021-327" target="_blank"
+												rel="nofollow noopener noreferrer">Maniati et al.</a> (<a
+												href="https://innoetics.github.io/publications/phonological-features/index.html"
+												target="_blank" rel="nofollow noopener noreferrer">samples</a>)
+											conducted a comprehensive study of the effect of phonological similarity
+											across different source-target language combinations, the effect of having
+											the adaptation language in training, and the quantity of adaptation data on
+											0-shot cross-lingual TTS performance.</p>
+										<p>Most papers focussed on the low-resourced aspects of multilingual synthesis,
+											but few directly addressed the native accent issue in cross-lingual
+											synthesis, whereby the target speaker’s native accent leaks into the
+											synthesised speech of a different language. <a
+												href="https://doi.org/10.21437/Interspeech.2021-1265" target="_blank"
+												rel="nofollow noopener noreferrer">Shang et al.</a> (<a
+												href="https://shang0712.github.io/Multilingual/" target="_blank"
+												rel="nofollow noopener noreferrer">samples</a>) attempted to mitigate
+											this by removing speaker information from the style and text encoder with an
+											adversarial speaker classifier. While this reduced the accent leakage, there
+											remains a gap in naturalness score between cross-lingual synthesis and
+											native-language synthesis. We think this is a research area with large
+											potential as solving this issue would massively boost the scalability of TTS
+											across languages.</p>
+										<h2><a name="voco" style="box-shadow:none">Vocoders</a></h2>
+										<p>As in previous years, this year’s crop of research around waveform generation
+											strived towards vocoders that were faster, more compute and data efficient,
+											higher quality, and more universal than their predecessors. However,
+											architecturally, the field seemed to be converging on a single class of ML
+											models: GANs. Why were GANs becoming so popular? A number of papers cited
+											the benefits of faster training and inference speeds while maintaining
+											quality on par with or better than existing state-of-the-art autoregressive
+											and flow-based vocoders. However, we clearly weren’t the only ones taking
+											notice of their recent success. In particular, <a
+												href="https://doi.org/10.21437/Interspeech.2021-41" target="_blank"
+												rel="nofollow noopener noreferrer">You et al.</a> hypothesized that the
+											reason behind the success of the latest generation of GAN vocoders is the
+											multi-resolution discriminating framework. They paired 6 different GAN-based
+											vocoders with the multi-resolution discriminator from Hifi-GAN and found no
+											significant difference in terms of MOS or MCD, suggesting that as long as
+											the generators are reasonably good (that is, having sufficient capacity to
+											model long term dependencies in the audio), the choice of generator
+											architecture is not as important as the discriminator.</p>
+										<p>While GANs have been undeniably successful and widely adopted, <a
+												href="https://doi.org/10.21437/Interspeech.2021-1547" target="_blank"
+												rel="nofollow noopener noreferrer">Perrotin et al.</a> rightly points
+											out that neural vocoders are often evaluated in their “comfort zones”, e.g.
+											on test data that closely resembles the training data. This says nothing
+											about a given vocoder’s ability to generalise to unseen data, like
+											particularly expressive speech with a wider F0 range or languages with
+											different phone sets. When evaluated on unseen data in a head-to-head
+											comparison against other neural vocoder architectures, do GANs live up to
+											the current hype? They carefully control the range of seen F0 values in the
+											training data and assessed the quality of synthesized audio both globally
+											(RMSE) and locally (RMSE outliers and frame-based F0 errors) on a test set
+											of extreme F0 values. Their results showed that: autoregressive WaveRNN,
+											hybrid signal-neural LPCNet, and GAN-based Parallel WaveGAN all experienced
+											different failure modes. The exception being the flow-based vocoder WaveGlow
+											which seemed relatively robust to unseen F0. Unfortunately for those of us
+											interested in vocoding more expressive utterances, this suggests that each
+											vocoder might require different adaptation strategies in order to generalise
+											well.</p>
+										<h2><a name="e2e" style="box-shadow:none">End-to-end TTS</a></h2>
+										<p>This year, we saw comparatively fewer papers exploring the realm of
+											end-to-end (E2E) TTS (by which we mean models that take as input
+											graphemes/phonemes and output raw audio). While we’re not sure if this is
+											any indication of the maturity of this research, it appears that E2E
+											approaches may still be grappling with alignment stability between the input
+											text and output audio. <a
+												href="https://doi.org/10.21437/Interspeech.2021-831" target="_blank"
+												rel="nofollow noopener noreferrer">Chung et al.</a> were motivated to
+											tackle this using a reinforcement learning setup to learn a robust internal
+											aligner, while <a href="https://doi.org/10.21437/Interspeech.2021-852"
+												target="_blank" rel="nofollow noopener noreferrer">Gong et al.</a> made
+											a case for conditioning LPCNet on mel-spectrograms instead of explicit pitch
+											parameters and Bark-scale cepstral coefficients (BFCCs) to mitigate
+											alignment errors from the Tacotron2-based acoustic model on longer
+											utterances. On the other hand, several of the latest E2E approaches cited
+											quality on-par with non-E2E baselines in addition to simplified training and
+											lighter models. <a href="https://doi.org/10.21437/Interspeech.2021-1897"
+												target="_blank" rel="nofollow noopener noreferrer">Chen et al.</a> and
+											<a href="https://doi.org/10.21437/Interspeech.2021-188" target="_blank"
+												rel="nofollow noopener noreferrer">Nguyen et al.</a> both do this by
+											removing the intermediate mel-spectrogram decoding step and swapping in an
+											adapted vocoder as a waveform decoder, in these cases WaveGrad and Hifi-GAN
+											respectively. Given the quality of some of these samples, we’ll definitely
+											be keeping an eye out for the wider adoption of these E2E approaches.</p>
+										<h2><a name="hon" style="box-shadow:none">Honourable mentions</a></h2>
+										<p>Despite our best efforts to span the ever-expanding realm of speech, we tend
+											to focus overwhelmingly on the areas in which we most actively do research.
+											Luckily, conferences like Interspeech and SSW expose us to a myriad of
+											research threads we might otherwise have completely overlooked.</p>
+										<p>For example, why limit ourselves to speech synthesis? If text is to speech as
+											notes are to music, surely music synthesis is a natural evolution of the
+											field! Obviously <a href="https://doi.org/10.21437/SSW.2021-23"
+												target="_blank" rel="nofollow noopener noreferrer">Cooper et al.</a>
+											thought so when they adapted existing TTS and waveform systems like
+											Tacotron2 and the neural source-filter (NSF) model respectively to the
+											synthesis of piano from MIDI input. While it seems like physical models
+											still outperform the proposed deep learning approach, the initial quality
+											speaks to the general flexibility and adaptability of these frameworks to
+											sound synthesis tasks.</p>
+										<p>We’re also learning new things about speech all the time. Case in point: the
+											Lombard effect, which apparently refers to the involuntary tendency to speak
+											louder in the presence of noise, causing changes in F0, energy, and speech
+											rate. Since we can’t expect to be using TTS only in perfectly quiet
+											environments, it seems obvious that our systems should adapt to their
+											surroundings. That’s exactly what <a
+												href="https://doi.org/10.21437/Interspeech.2021-946" target="_blank"
+												rel="nofollow noopener noreferrer">Novitasari et al.</a> try to do by
+											building a machine speech chain to establish a feedback loop between
+											listening (ASR) and speaking (TTS) components. By incorporating information
+											about mismatches in the ASR transcribed text and the synthesised text, the
+											TTS system is able to get per utterance feedback and dynamically adapt the
+											subsequent speech prosody — a neat idea even outside of the Lombard context!
+										</p>
+										<p>Another aspect that has been interesting to observe is the growing interest
+											in the utility of learned speech representations in downstream TTS tasks.
+											Typically evaluated in the context of ASR, this year saw speech
+											representations learned through Self-Supervised Learning (SSL) methods being
+											applied to downstream TTS-oriented tasks like resynthesis and voice
+											conversion (<a href="https://doi.org/10.21437/Interspeech.2021-475"
+												target="_blank" rel="nofollow noopener noreferrer">Polyak et al.</a>).
+											Leveraging the way VQ-VAEs cluster the latent space into discrete prototype
+											centroids, <a href="https://doi.org/10.21437/SSW.2021-40" target="_blank"
+												rel="nofollow noopener noreferrer">Fong et al.</a> and <a
+												href="https://doi.org/10.21437/SSW.2021-22" target="_blank"
+												rel="nofollow noopener noreferrer">Williams et al.</a> investigate how
+											VQ codes corresponding to phone and speaker representations can be used to
+											manipulate speech, in particular for creating new voices and modifying word
+											pronunciation. While different speech representations may be more or less
+											suitable for different tasks, this certainly appears to be a promising
+											thread for the future of controllable speech synthesis.</p>
+										<p>And that’s a wrap! Hope to see you at <a href="https://interspeech2022.org/"
+												target="_blank" rel="nofollow noopener noreferrer">INTERSPEECH 2022 in
+												Incheon</a>, and SSW 2023 in Grenoble!</p>
+									</div>
+								</div>
+			</section>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="../js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="../js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="../js/jquery.countTo.js"></script>
+
+
+	<!-- MAIN JS -->
+	<script src="../js/main.js"></script>
+
+</body>
+
+</html>
